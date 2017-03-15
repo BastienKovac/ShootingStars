@@ -2,44 +2,61 @@ package network.iut.org.flappydragon.game.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.util.Log;
+import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import network.iut.org.flappydragon.Background;
-import network.iut.org.flappydragon.entities.CircleEnemyShip;
-import network.iut.org.flappydragon.entities.PlayerShip;
-import network.iut.org.flappydragon.game.model.EntityManager;
+import network.iut.org.flappydragon.R;
+import network.iut.org.flappydragon.game.view.background.Background;
+import network.iut.org.flappydragon.game.model.GameModel;
 
 public class GameView extends SurfaceView implements Runnable {
+
+    private List<Background> backgrounds;
+
+    public static final long FPS = 60;
 
     private SurfaceHolder holder;
     private boolean paused = true;
 
-    private EntityManager entityManager;
-
-    public static final long FPS = 60;
+    private GameModel model;
 
     private Timer timer = new Timer();
     private TimerTask timerTask;
-    private Background background;
 
     private float originX, originY;
 
     public GameView(Context context) {
         super(context);
-        background = new Background(context, this);
         holder = getHolder();
-        int w = getWidth();
-        int h = getHeight();
-        this.originX = w / 2f;
-        this.originY = h * 0.9f;
+        backgrounds = new ArrayList<>();
 
-        entityManager = new EntityManager(new PlayerShip(context, this));
+        MediaPlayer mp = MediaPlayer.create(context, R.raw.ShootingStars);
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.start();
+            }
+        });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GameView.this.run();
+            }
+        }).start();
+    }
+
+    public void setModel(GameModel model) {
+        this.model = model;
     }
 
     @Override
@@ -49,7 +66,7 @@ public class GameView extends SurfaceView implements Runnable {
             if(paused) {
                 resume();
             } else {
-                this.entityManager.getPlayerEntity().moveTo(event.getX(), event.getY());
+                model.getEntityManager().getPlayerEntity().moveTo(event.getX(), event.getY());
             }
         }
         return true;
@@ -99,18 +116,46 @@ public class GameView extends SurfaceView implements Runnable {
         draw();
     }
 
+    public void addBackground(Background bg) {
+        backgrounds.add(bg);
+    }
+
     private void draw() {
         while(!holder.getSurface().isValid()) {
             try { Thread.sleep(10); } catch (InterruptedException e) { e.printStackTrace(); }
         }
         Canvas canvas = holder.lockCanvas();
         drawCanvas(canvas);
-        holder.unlockCanvasAndPost(canvas);
+        try {
+            holder.unlockCanvasAndPost(canvas);
+        } catch (Exception ignored) {
+
+        }
     }
 
     private void drawCanvas(Canvas canvas) {
-        background.draw(canvas);
-        entityManager.draw(canvas);
+        for (Background bg : backgrounds) {
+            bg.update(FPS);
+            drawBackground(canvas, bg);
+        }
+        model.getEntityManager().draw(canvas);
+    }
+
+    private void drawBackground(Canvas canvas, Background bg) {
+        Rect fromRect1 = new Rect(0, 0, bg.getWidth(), bg.getHeight() - bg.getyClip());
+        Rect toRect1 = new Rect(0, bg.getyClip(), bg.getWidth(), bg.getHeight());
+
+        Rect fromRect2 = new Rect(0, bg.getHeight() - bg.getyClip(), bg.getWidth(), bg.getHeight());
+        Rect toRect2 = new Rect(0, 0, bg.getWidth(), bg.getyClip());
+
+        //draw the two background bitmaps
+        if (!bg.isReversedFirst()) {
+            canvas.drawBitmap(bg.getBg(), fromRect1, toRect1, null);
+            canvas.drawBitmap(bg.getBgReversed(), fromRect2, toRect2, null);
+        } else {
+            canvas.drawBitmap(bg.getBg(), fromRect2, toRect2, null);
+            canvas.drawBitmap(bg.getBgReversed(), fromRect1, toRect1, null);
+        }
     }
 
 }

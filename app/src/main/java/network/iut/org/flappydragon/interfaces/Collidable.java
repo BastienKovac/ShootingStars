@@ -6,6 +6,6 @@ package network.iut.org.flappydragon.interfaces;
 
 public interface Collidable {
 
-    public boolean collideWith(float x, float y);
+    public boolean collideWith(Collidable other);
 
 }

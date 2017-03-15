@@ -16,10 +16,23 @@ public class EntityManager {
     private List<AbstractEntity> enemyEntities;
     private AbstractEntity playerEntity;
 
+    private float allySpawnX, allySpawnY;
 
-    public EntityManager(AbstractEntity playerEntity) {
-        this.playerEntity = playerEntity;
+
+    public EntityManager() {
         this.enemyEntities = new ArrayList<>();
+    }
+
+    public void setPlayerEntity(AbstractEntity playerEntity) {
+        this.playerEntity = playerEntity;
+    }
+
+    public void setAllySpawnX(float allySpawnX) {
+        this.allySpawnX = allySpawnX;
+    }
+
+    public void setAllySpawnY(float allySpawnY) {
+        this.allySpawnY = allySpawnY;
     }
 
     public void addEnemyEntity(AbstractEntity enemyEntity) {
@@ -37,15 +50,6 @@ public class EntityManager {
                 entity.draw(canvas);
             }
         }
-    }
-
-    public boolean updateGameState() {
-        for (AbstractEntity enemy : enemyEntities) {
-            if (playerEntity.collideWith(enemy.getX(), enemy.getY())) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public AbstractEntity getPlayerEntity() {

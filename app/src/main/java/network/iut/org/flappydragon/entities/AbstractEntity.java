@@ -16,28 +16,28 @@ import network.iut.org.flappydragon.interfaces.Drawable;
  * Created by Android on 13/03/2017.
  */
 
-public abstract class AbstractEntity implements Collidable, Drawable {
-
-    private GameView view;
+public abstract class AbstractEntity implements Drawable {
 
     private float x, y;
     private double relativeSpeed;
 
     private double updateTimer;
 
+    private Collidable hitbox;
+
     protected Bitmap displayedFrame;
     protected Bitmap[] frames;
     protected int currentFrame;
 
-    public AbstractEntity(Context context, GameView view) {
-        this.view = view;
+    public AbstractEntity(Context context) {
         this.frames = getFrames(context);
         this.currentFrame = 0;
         this.displayedFrame = frames[0];
         this.relativeSpeed = 1;
+    }
 
-        this.x = view.getOriginX();
-        this.y = view.getOriginY();
+    public void setHitbox(Collidable hitbox) {
+        this.hitbox = hitbox;
     }
 
     public float getX() {
@@ -46,6 +46,14 @@ public abstract class AbstractEntity implements Collidable, Drawable {
 
     public float getY() {
         return y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 
     public void setRelativeSpeed(double s) {

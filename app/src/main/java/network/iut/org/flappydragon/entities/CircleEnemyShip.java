@@ -13,8 +13,8 @@ import network.iut.org.flappydragon.util.GraphicsUtil;
 
 public class CircleEnemyShip extends AbstractEntity {
 
-    public CircleEnemyShip(Context context, GameView view) {
-        super(context, view);
+    public CircleEnemyShip(Context context) {
+        super(context);
         setRelativeSpeed(0.10);
     }
 
@@ -27,11 +27,6 @@ public class CircleEnemyShip extends AbstractEntity {
             frames[i] = GraphicsUtil.getScaledBitmapAlpha8(context, id);
         }
         return frames;
-    }
-
-    @Override
-    public boolean collideWith(float x, float y) {
-        return false;
     }
 
 }

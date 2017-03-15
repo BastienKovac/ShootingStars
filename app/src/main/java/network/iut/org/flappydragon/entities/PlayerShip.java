@@ -16,8 +16,8 @@ public class PlayerShip extends AbstractEntity {
 
     private final int radius;
 
-    public PlayerShip(Context context, GameView view) {
-        super(context, view);
+    public PlayerShip(Context context) {
+        super(context);
         this.radius = displayedFrame.getHeight() > displayedFrame.getWidth() ? displayedFrame.getWidth() : displayedFrame.getHeight();
         setRelativeSpeed(0.14);
     }
@@ -30,12 +30,6 @@ public class PlayerShip extends AbstractEntity {
         frames[2] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame3);
         frames[3] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame4);
         return frames;
-    }
-
-    @Override
-    public boolean collideWith(float x, float y) {
-        float distance = Math.abs(y - getY() / x - getX());
-        return distance < radius;
     }
 
 }
