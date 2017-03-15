@@ -38,14 +38,9 @@ public class GameView extends SurfaceView implements Runnable {
         holder = getHolder();
         backgrounds = new ArrayList<>();
 
-        MediaPlayer mp = MediaPlayer.create(context, R.raw.ShootingStars);
+        MediaPlayer mp = MediaPlayer.create(context, R.raw.shooting_stars);
         mp.start();
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.start();
-            }
-        });
+        mp.setLooping(true);
 
         new Thread(new Runnable() {
             @Override
@@ -113,6 +108,9 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
+        if (model != null) {
+            model.updateEnemies(getContext());
+        }
         draw();
     }
 

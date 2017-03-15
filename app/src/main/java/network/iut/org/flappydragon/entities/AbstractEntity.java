@@ -3,10 +3,14 @@ package network.iut.org.flappydragon.entities;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.Log;
 
 import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
 
 import network.iut.org.flappydragon.game.view.GameView;
 import network.iut.org.flappydragon.interfaces.Collidable;
@@ -19,15 +23,16 @@ import network.iut.org.flappydragon.interfaces.Drawable;
 public abstract class AbstractEntity implements Drawable {
 
     private float x, y;
-    private double relativeSpeed;
+    private float relativeSpeed;
 
     private double updateTimer;
-
-    private Collidable hitbox;
 
     protected Bitmap displayedFrame;
     protected Bitmap[] frames;
     protected int currentFrame;
+
+    private Deque<PointF> trajectory;
+
 
     public AbstractEntity(Context context) {
         this.frames = getFrames(context);
@@ -36,8 +41,11 @@ public abstract class AbstractEntity implements Drawable {
         this.relativeSpeed = 1;
     }
 
-    public void setHitbox(Collidable hitbox) {
-        this.hitbox = hitbox;
+    public void setTrajectory(Deque<PointF> trajectory) {
+        this.trajectory = trajectory;
+        PointF origin = trajectory.pop();
+        this.x = origin.x;
+        this.y = origin.y;
     }
 
     public float getX() {
@@ -48,6 +56,14 @@ public abstract class AbstractEntity implements Drawable {
         return y;
     }
 
+    public float getCenterX() {
+        return x - displayedFrame.getWidth() / 2;
+    }
+
+    public float getCenterY() {
+        return y - displayedFrame.getHeight() / 4;
+    }
+
     public void setX(float x) {
         this.x = x;
     }
@@ -56,20 +72,29 @@ public abstract class AbstractEntity implements Drawable {
         this.y = y;
     }
 
-    public void setRelativeSpeed(double s) {
+    public void setRelativeSpeed(float s) {
         this.relativeSpeed = s;
     }
 
-    public double getRelativeSpeed() {
+    public float getRelativeSpeed() {
         return relativeSpeed;
     }
 
     public void moveTo(float targetX, float targetY) {
-        float diffX = (targetX - displayedFrame.getWidth() / 2) - this.x;
-        float diffY = (targetY - displayedFrame.getHeight() * 1.5f) - this.y;
+        float diffX = targetX - this.x;
+        float diffY = targetY - this.y;
 
         this.x += diffX * relativeSpeed;
         this.y += diffY * relativeSpeed;
+    }
+
+    public boolean followTrajectory() {
+        if (trajectory != null && !trajectory.isEmpty()) {
+            PointF p = trajectory.pop();
+            moveTo(p.x, p.y);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -88,7 +113,7 @@ public abstract class AbstractEntity implements Drawable {
     public void draw(Canvas canvas) {
         if (canvas != null) {
            update();
-           canvas.drawBitmap(displayedFrame, x, y, null);
+           canvas.drawBitmap(displayedFrame, x - displayedFrame.getWidth() / 2, y - displayedFrame.getHeight() / 2, null);
         }
     }
 

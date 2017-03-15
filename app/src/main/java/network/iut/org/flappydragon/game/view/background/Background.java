@@ -20,11 +20,10 @@ public class Background {
 
     public Background(Context context, int w, int h, String name, float s) {
         int resID = context.getResources().getIdentifier(name, "drawable", context.getPackageName());
-        bg = BitmapFactory.decodeResource(context.getResources(), resID);
         reversedFirst = false;
         yClip = 0;
         speed = s;
-        bg = GraphicsUtil.getScaledBitmapAlpha8(context, resID);
+        bg = GraphicsUtil.getBitmap(context, w, h, resID);
 
         width = bg.getWidth();
         height = bg.getHeight();

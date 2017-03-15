@@ -16,11 +16,14 @@ public class EntityManager {
     private List<AbstractEntity> enemyEntities;
     private AbstractEntity playerEntity;
 
+    private List<AbstractEntity> toPurge;
+
     private float allySpawnX, allySpawnY;
 
 
     public EntityManager() {
         this.enemyEntities = new ArrayList<>();
+        this.toPurge = new ArrayList<>();
     }
 
     public void setPlayerEntity(AbstractEntity playerEntity) {
@@ -41,6 +44,18 @@ public class EntityManager {
 
     public void removeEnemyEntity(AbstractEntity enemyEntity) {
         this.enemyEntities.remove(enemyEntity);
+    }
+
+    public void followEnemyTrajectories() {
+        for (AbstractEntity entity : enemyEntities) {
+            if (!entity.followTrajectory()) {
+                toPurge.add(entity);
+            }
+        }
+        for (AbstractEntity entity : toPurge) {
+            enemyEntities.remove(entity);
+        }
+        toPurge.clear();
     }
 
     public void draw(Canvas canvas) {

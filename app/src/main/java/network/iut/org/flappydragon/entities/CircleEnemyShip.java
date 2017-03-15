@@ -2,9 +2,7 @@ package network.iut.org.flappydragon.entities;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 
-import network.iut.org.flappydragon.game.view.GameView;
 import network.iut.org.flappydragon.util.GraphicsUtil;
 
 /**
@@ -15,7 +13,7 @@ public class CircleEnemyShip extends AbstractEntity {
 
     public CircleEnemyShip(Context context) {
         super(context);
-        setRelativeSpeed(0.10);
+        setRelativeSpeed(0.1f);
     }
 
     @Override
@@ -24,7 +22,7 @@ public class CircleEnemyShip extends AbstractEntity {
         for (int i = 0 ; i < frames.length ; i++ ) {
             String res = "circleenemy1_ship_frame" + (i + 1);
             int id = context.getResources().getIdentifier(res, "drawable", context.getPackageName());
-            frames[i] = GraphicsUtil.getScaledBitmapAlpha8(context, id);
+            frames[i] = GraphicsUtil.getBitmap(context, id);
         }
         return frames;
     }

@@ -2,10 +2,8 @@ package network.iut.org.flappydragon.entities;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 
 import network.iut.org.flappydragon.R;
-import network.iut.org.flappydragon.game.view.GameView;
 import network.iut.org.flappydragon.util.GraphicsUtil;
 
 /**
@@ -14,21 +12,27 @@ import network.iut.org.flappydragon.util.GraphicsUtil;
 
 public class PlayerShip extends AbstractEntity {
 
-    private final int radius;
-
     public PlayerShip(Context context) {
         super(context);
-        this.radius = displayedFrame.getHeight() > displayedFrame.getWidth() ? displayedFrame.getWidth() : displayedFrame.getHeight();
-        setRelativeSpeed(0.14);
+        setRelativeSpeed(0.14f);
+    }
+
+    @Override
+    public void moveTo(float targetX, float targetY) {
+        float diffX = (targetX - displayedFrame.getWidth() / 2) - getX();
+        float diffY = (targetY - displayedFrame.getHeight() * 0.75f) - getY();
+
+        setX(getX() + diffX * getRelativeSpeed());
+        setY(getY() + diffY * getRelativeSpeed());
     }
 
     @Override
     protected Bitmap[] getFrames(Context context) {
         Bitmap[] frames = new Bitmap[4];
-        frames[0] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame1);
-        frames[1] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame2);
-        frames[2] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame3);
-        frames[3] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame4);
+        frames[0] = GraphicsUtil.getBitmap(context, R.drawable.player_ship_frame1);
+        frames[1] = GraphicsUtil.getBitmap(context, R.drawable.player_ship_frame2);
+        frames[2] = GraphicsUtil.getBitmap(context, R.drawable.player_ship_frame3);
+        frames[3] = GraphicsUtil.getBitmap(context, R.drawable.player_ship_frame4);
         return frames;
     }
 
