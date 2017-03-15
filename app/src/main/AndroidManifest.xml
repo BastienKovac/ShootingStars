@@ -11,9 +11,13 @@
         <activity android:name=".game.GameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".game.menu.GameMenu"
+            android:label="@string/title_activity_game_menu"></activity>
     </application>
 
 </manifest>
