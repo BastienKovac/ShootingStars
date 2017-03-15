@@ -11,13 +11,16 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import network.iut.org.flappydragon.Background;
-import network.iut.org.flappydragon.Player;
+import network.iut.org.flappydragon.entities.CircleEnemyShip;
+import network.iut.org.flappydragon.entities.PlayerShip;
+import network.iut.org.flappydragon.game.model.EntityManager;
 
 public class GameView extends SurfaceView implements Runnable {
 
     private SurfaceHolder holder;
     private boolean paused = true;
-    private Player player;
+
+    private EntityManager entityManager;
 
     public static final long FPS = 60;
 
@@ -25,11 +28,18 @@ public class GameView extends SurfaceView implements Runnable {
     private TimerTask timerTask;
     private Background background;
 
+    private float originX, originY;
+
     public GameView(Context context) {
         super(context);
-        player = new Player(context, this);
         background = new Background(context, this);
         holder = getHolder();
+        int w = getWidth();
+        int h = getHeight();
+        this.originX = w / 2f;
+        this.originY = h * 0.9f;
+
+        entityManager = new EntityManager(new PlayerShip(context, this));
     }
 
     @Override
@@ -39,17 +49,18 @@ public class GameView extends SurfaceView implements Runnable {
             if(paused) {
                 resume();
             } else {
-                this.player.setTargetCoordinates(event.getX(), event.getY());
-            }
-        }
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            if(paused) {
-                resume();
-            } else {
-                this.player.stopMovement();
+                this.entityManager.getPlayerEntity().moveTo(event.getX(), event.getY());
             }
         }
         return true;
+    }
+
+    public float getOriginX() {
+        return originX;
+    }
+
+    public float getOriginY() {
+        return originY;
     }
 
     private void resume() {
@@ -85,7 +96,6 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
-        player.move();
         draw();
     }
 
@@ -100,7 +110,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void drawCanvas(Canvas canvas) {
         background.draw(canvas);
-        player.draw(canvas);
+        entityManager.draw(canvas);
     }
 
 }

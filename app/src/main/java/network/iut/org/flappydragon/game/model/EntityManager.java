@@ -1,5 +1,7 @@
 package network.iut.org.flappydragon.game.model;
 
+import android.graphics.Canvas;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,15 @@ public class EntityManager {
         this.enemyEntities.remove(enemyEntity);
     }
 
+    public void draw(Canvas canvas) {
+        if (canvas != null) {
+            playerEntity.draw(canvas);
+            for (AbstractEntity entity : enemyEntities) {
+                entity.draw(canvas);
+            }
+        }
+    }
+
     public boolean updateGameState() {
         for (AbstractEntity enemy : enemyEntities) {
             if (playerEntity.collideWith(enemy.getX(), enemy.getY())) {
@@ -37,4 +48,7 @@ public class EntityManager {
         return true;
     }
 
+    public AbstractEntity getPlayerEntity() {
+        return playerEntity;
+    }
 }

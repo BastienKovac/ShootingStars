@@ -14,8 +14,12 @@ import network.iut.org.flappydragon.util.GraphicsUtil;
 
 public class PlayerShip extends AbstractEntity {
 
+    private final int radius;
+
     public PlayerShip(Context context, GameView view) {
-        super(context, view, false);
+        super(context, view);
+        this.radius = displayedFrame.getHeight() > displayedFrame.getWidth() ? displayedFrame.getWidth() : displayedFrame.getHeight();
+        setRelativeSpeed(0.14);
     }
 
     @Override
@@ -24,13 +28,14 @@ public class PlayerShip extends AbstractEntity {
         frames[0] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame1);
         frames[1] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame2);
         frames[2] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame3);
-        frames[2] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame4);
+        frames[3] = GraphicsUtil.getScaledBitmapAlpha8(context, R.drawable.player_ship_frame4);
         return frames;
     }
 
     @Override
-    public boolean collideWith(double x, double y) {
-        return false;
+    public boolean collideWith(float x, float y) {
+        float distance = Math.abs(y - getY() / x - getX());
+        return distance < radius;
     }
 
 }

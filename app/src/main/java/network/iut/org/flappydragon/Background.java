@@ -18,6 +18,17 @@ public class Background {
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(background1, new Rect(0, 0, background1.getWidth(), background1.getHeight()), new Rect(0, 0, view.getWidth(), view.getHeight()), null);
+        if (canvas != null) {
+            canvas.drawBitmap(background1, new Rect(0, 0, background1.getWidth(), background1.getHeight()), new Rect(0, 0, view.getWidth(), view.getHeight()), null);
+        }
     }
+
+    public int getWidth() {
+        return background1.getWidth();
+    }
+
+    public int getHeight() {
+        return background1.getHeight();
+    }
+
 }

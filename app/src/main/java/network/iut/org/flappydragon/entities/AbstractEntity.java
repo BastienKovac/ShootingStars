@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
+
+import java.util.Arrays;
 
 import network.iut.org.flappydragon.game.view.GameView;
 import network.iut.org.flappydragon.interfaces.Collidable;
@@ -15,23 +18,26 @@ import network.iut.org.flappydragon.interfaces.Drawable;
 
 public abstract class AbstractEntity implements Collidable, Drawable {
 
-    private boolean scaleUp;
     private GameView view;
 
     private float x, y;
     private double relativeSpeed;
 
+    private double updateTimer;
+
     protected Bitmap displayedFrame;
     protected Bitmap[] frames;
     protected int currentFrame;
 
-
-    public AbstractEntity(Context context, GameView view, boolean scaleUp) {
+    public AbstractEntity(Context context, GameView view) {
         this.view = view;
-        this.scaleUp = scaleUp;
         this.frames = getFrames(context);
         this.currentFrame = 0;
         this.displayedFrame = frames[0];
+        this.relativeSpeed = 1;
+
+        this.x = view.getOriginX();
+        this.y = view.getOriginY();
     }
 
     public float getX() {
@@ -50,19 +56,31 @@ public abstract class AbstractEntity implements Collidable, Drawable {
         return relativeSpeed;
     }
 
+    public void moveTo(float targetX, float targetY) {
+        float diffX = (targetX - displayedFrame.getWidth() / 2) - this.x;
+        float diffY = (targetY - displayedFrame.getHeight() * 1.5f) - this.y;
+
+        this.x += diffX * relativeSpeed;
+        this.y += diffY * relativeSpeed;
+    }
+
     @Override
     public void update() {
-        int nbFrames = frames.length;
-        this.currentFrame = (this.currentFrame + 1) % nbFrames;
-        this.displayedFrame = frames[currentFrame];
+        if (updateTimer >= 1) {
+            int nbFrames = frames.length;
+            this.displayedFrame = frames[currentFrame];
+            this.currentFrame = (this.currentFrame + 1) % nbFrames;
+            updateTimer = 0;
+        } else {
+            updateTimer += relativeSpeed;
+        }
     }
 
     @Override
     public void draw(Canvas canvas) {
-        if (scaleUp) {
-            canvas.drawBitmap(displayedFrame, x, y, null);
-        } else {
-            canvas.drawBitmap(displayedFrame, new Rect(0, 0, displayedFrame.getWidth(), displayedFrame.getHeight()), new Rect(0, 0, view.getWidth(), view.getHeight()), null);
+        if (canvas != null) {
+           update();
+           canvas.drawBitmap(displayedFrame, x, y, null);
         }
     }
 
