@@ -19,7 +19,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/linearLayout"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
 
 
         <Button
@@ -29,10 +32,12 @@
             android:layout_margin="4dp"
             android:padding="10dp"
             android:text="Easy Mode"
+            android:textScaleX="3"
             android:background="#39A6CE"
             android:textColor="#FFFFFF"
-            android:layout_weight="0.20" />
+            android:layout_weight="0.25" />
 
+        <!-- android:background="#39A6CE" -->
         <Button
             android:id="@+id/btnFb"
             android:layout_width="match_parent"
@@ -40,9 +45,10 @@
             android:layout_margin="4dp"
             android:padding="10dp"
             android:text="Hard Mode"
+            android:textScaleX="3"
             android:background="#0162a0"
             android:textColor="#FFFFFF"
-            android:layout_weight="0.20" />
+            android:layout_weight="0.25" />
 
         <Button
             android:id="@+id/btnTwitter"
@@ -51,9 +57,10 @@
             android:layout_margin="4dp"
             android:padding="10dp"
             android:text="Imposible Mode"
+            android:textScaleX="3"
             android:background="#DF4B39"
             android:textColor="#FFFFFF"
-            android:layout_weight="0.20" />
+            android:layout_weight="0.25" />
 
         <Button
             android:id="@+id/btnExit"
@@ -62,9 +69,10 @@
             android:layout_margin="4dp"
             android:padding="10dp"
             android:text="Exit"
+            android:textScaleX="3"
             android:background="#9882a9"
             android:textColor="#FFFFFF"
-            android:layout_weight="0.20" />
+            android:layout_weight="0.25" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,9 +84,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout">
-
-
+        android:id="@+id/linearLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
     </LinearLayout>
-
 </RelativeLayout>
