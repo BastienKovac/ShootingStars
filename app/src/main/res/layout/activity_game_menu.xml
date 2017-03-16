@@ -13,21 +13,25 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:background="@drawable/menu_wall"
         android:padding="10dp"
-        >
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:weightSum="1">
 
 
         <Button
-            android:id="@+id/btnGplus"
+            android:id="@+id/btnLvl1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:padding="10dp"
-            android:text="Niveau 1"
+            android:text="Easy Mode"
             android:background="#39A6CE"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.20" />
 
         <Button
             android:id="@+id/btnFb"
@@ -35,9 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:padding="10dp"
-            android:text="Niveau 2"
-            android:background="#DD4B39"
-            android:textColor="#FFFFFF" />
+            android:text="Hard Mode"
+            android:background="#0162a0"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.20" />
 
         <Button
             android:id="@+id/btnTwitter"
@@ -45,9 +50,35 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:padding="10dp"
-            android:text="Quitter"
-            android:background="#46629E"
-            android:textColor="#FFFFFF" />
+            android:text="Imposible Mode"
+            android:background="#DF4B39"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.20" />
+
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="10dp"
+            android:text="Exit"
+            android:background="#9882a9"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.20" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/menu_title"
+        android:padding="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout">
+
+
     </LinearLayout>
 
 </RelativeLayout>
