@@ -3,7 +3,6 @@ package network.iut.org.flappydragon.game.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,41 +12,26 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import network.iut.org.flappydragon.R;
 import network.iut.org.flappydragon.game.view.background.Background;
 import network.iut.org.flappydragon.game.model.GameModel;
 
 public class GameView extends SurfaceView implements Runnable {
 
+    private static final long FPS = 60;
+
     private List<Background> backgrounds;
-
-    public static final long FPS = 60;
-
     private SurfaceHolder holder;
-    private boolean paused = true;
-
     private GameModel model;
 
     private Timer timer = new Timer();
     private TimerTask timerTask;
 
-    private float originX, originY;
 
     public GameView(Context context) {
         super(context);
         holder = getHolder();
         backgrounds = new ArrayList<>();
-
-        MediaPlayer mp = MediaPlayer.create(context, R.raw.shooting_stars);
-        mp.start();
-        mp.setLooping(true);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                GameView.this.run();
-            }
-        }).start();
+        resume();
     }
 
     public void setModel(GameModel model) {
@@ -58,25 +42,14 @@ public class GameView extends SurfaceView implements Runnable {
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
         if(event.getAction() == MotionEvent.ACTION_MOVE) {
-            if(paused) {
-                resume();
-            } else {
+            if (model.getEntityManager().getPlayerEntity() != null) {
                 model.getEntityManager().getPlayerEntity().moveTo(event.getX(), event.getY());
             }
         }
         return true;
     }
 
-    public float getOriginX() {
-        return originX;
-    }
-
-    public float getOriginY() {
-        return originY;
-    }
-
-    private void resume() {
-        paused = false;
+    public void resume() {
         startTimer();
     }
 
@@ -109,7 +82,7 @@ public class GameView extends SurfaceView implements Runnable {
     @Override
     public void run() {
         if (model != null) {
-            model.updateEnemies(getContext());
+            model.updateStatus(getContext());
         }
         draw();
     }
@@ -140,6 +113,9 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void drawBackground(Canvas canvas, Background bg) {
+        if (canvas == null) {
+            return;
+        }
         Rect fromRect1 = new Rect(0, 0, bg.getWidth(), bg.getHeight() - bg.getyClip());
         Rect toRect1 = new Rect(0, bg.getyClip(), bg.getWidth(), bg.getHeight());
 

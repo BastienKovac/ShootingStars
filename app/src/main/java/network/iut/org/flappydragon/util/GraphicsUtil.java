@@ -3,6 +3,8 @@ package network.iut.org.flappydragon.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.util.Log;
 
 public class GraphicsUtil {
@@ -20,11 +22,11 @@ public class GraphicsUtil {
         return b;
     }
 
-    public static Bitmap getBitmap(Context context, int h, int w, int bitmapId) {
+    public static Bitmap getBitmap(Context context, int w, int h, int bitmapId) {
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
         bitmapOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(context.getResources(), bitmapId, bitmapOptions);
-        bitmapOptions.inSampleSize = calculateInSampleSize(bitmapOptions, h, w);
+        bitmapOptions.inSampleSize = calculateInSampleSize(bitmapOptions, w, h);
         bitmapOptions.inPreferredConfig = Bitmap.Config.RGB_565;
         bitmapOptions.inDither = true;
         bitmapOptions.inJustDecodeBounds = false;
