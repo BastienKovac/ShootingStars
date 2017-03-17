@@ -19,8 +19,8 @@ public class LossDialog extends Dialog implements View.OnClickListener {
     private GameView associatedView;
 
 
-    public LossDialog(Context context, GameView associatedView) {
-        super(context);
+    public LossDialog(GameView associatedView) {
+        super(associatedView.getContext());
         this.associatedView = associatedView;
     }
 
@@ -39,7 +39,7 @@ public class LossDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_yes:
-                associatedView.resume();
+                associatedView.reinitialize();
                 break;
             case R.id.btn_no:
                 dismiss();

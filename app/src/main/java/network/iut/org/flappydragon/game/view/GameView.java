@@ -87,6 +87,11 @@ public class GameView extends SurfaceView implements Runnable {
         draw();
     }
 
+    public void reinitialize() {
+        model.reinitialize(getContext());
+        resume();
+    }
+
     public void addBackground(Background bg) {
         backgrounds.add(bg);
     }
