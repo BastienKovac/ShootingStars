@@ -125,20 +125,6 @@
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout"
         android:layout_alignParentRight="true"
-<<<<<<< HEAD
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/imageView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true" />
-
-=======
         android:layout_alignParentEnd="true">
     </LinearLayout>
->>>>>>> 2a2ba6695848f99e9fa0fe45aa1d76afee32cef3
 </RelativeLayout>
