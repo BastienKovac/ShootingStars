@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,66 +14,104 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/menu_wall"
         android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/linearLayout"
-        android:weightSum="1"
+        android:weightSum="10"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
 
-
         <Button
             android:id="@+id/btnLvl1"
+            android:clickable="true"
+            android:onClick="btnEasyMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:padding="10dp"
             android:text="Easy Mode"
-            android:textScaleX="3"
-            android:background="#39A6CE"
+            android:textScaleX="2"
+            android:background="#facd2e"
             android:textColor="#FFFFFF"
-            android:layout_weight="0.25" />
+            android:layout_weight="1" />
 
-        <!-- android:background="#39A6CE" -->
         <Button
-            android:id="@+id/btnFb"
+            android:id="@+id/btnLvl2"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:padding="10dp"
             android:text="Hard Mode"
-            android:textScaleX="3"
-            android:background="#0162a0"
+            android:textScaleX="2"
+            android:background="#fbb600"
             android:textColor="#FFFFFF"
-            android:layout_weight="0.25" />
+            android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/btnTwitter"
+            android:id="@+id/btnLvl3"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:padding="10dp"
             android:text="Imposible Mode"
-            android:textScaleX="3"
-            android:background="#DF4B39"
+            android:textScaleX="2"
+            android:background="#fa8100"
             android:textColor="#FFFFFF"
-            android:layout_weight="0.25" />
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            >
+            <Button
+                android:id="@+id/btnoption"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:padding="10dp"
+                android:text="Option"
+                android:textScaleX="2"
+                android:background="#0162a0"
+                android:textColor="#FFFFFF"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:id="@+id/btncredit"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:padding="10dp"
+                android:text="Credit"
+                android:textScaleX="2"
+                android:background="#0162a0"
+                android:textColor="#FFFFFF"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btnExit"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:padding="10dp"
             android:text="Exit"
-            android:textScaleX="3"
-            android:background="#9882a9"
+            android:textScaleX="2"
+            android:background="#115077"
             android:textColor="#FFFFFF"
-            android:layout_weight="0.25" />
+            android:layout_weight="1" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -86,20 +125,6 @@
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout"
         android:layout_alignParentRight="true"
-<<<<<<< HEAD
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/imageView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true" />
-
-=======
         android:layout_alignParentEnd="true">
     </LinearLayout>
->>>>>>> 2a2ba6695848f99e9fa0fe45aa1d76afee32cef3
 </RelativeLayout>
