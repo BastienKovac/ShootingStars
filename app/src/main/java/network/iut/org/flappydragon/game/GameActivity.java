@@ -13,13 +13,15 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Random;
 
-import network.iut.org.flappydragon.R;
 import network.iut.org.flappydragon.entities.AbstractEntity;
 import network.iut.org.flappydragon.entities.CircleEnemyShip;
+import network.iut.org.flappydragon.entities.FrameHolder;
 import network.iut.org.flappydragon.entities.PlayerShip;
 import network.iut.org.flappydragon.game.model.GameModel;
+import network.iut.org.flappydragon.game.model.Patterns;
 import network.iut.org.flappydragon.game.view.GameView;
 import network.iut.org.flappydragon.game.view.background.Background;
+import network.iut.org.flappydragon.util.SoundPoolUtil;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -31,29 +33,19 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SoundPoolUtil.init(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         view = new GameView(this);
-        model = new GameModel(this);
+        model = new GameModel();
         view.setModel(model);
         setContentView(view);
+        SoundPoolUtil.getInstance().startBackgroundMusic();
         initDimensions();
-        initTrajectory();
+        Patterns.getInstance().buildPatterns(width, height);
+        FrameHolder.getInstance().initExplosionsFrame(this);
+        FrameHolder.getInstance().initPlayerShot(this);
         initBackgrounds();
         initSpawnPoints();
-    }
-
-    private void initTrajectory() {
-        Deque<PointF> trajectory = new ArrayDeque<>();
-        for (float y = 0 ; y < height ; y += 5f) {
-            float x = getSinusPoint((float) y);
-            PointF p = new PointF(x, y);
-            trajectory.add(p);
-        }
-        model.setReferenceTrajectory(trajectory);
-    }
-
-    private float getSinusPoint(float y) {
-        return ((width / 2f) * (float) Math.sin((0.010f * y) % (2 * Math.PI)) + (width / 2f));
     }
 
     private void initDimensions() {
@@ -66,7 +58,8 @@ public class GameActivity extends AppCompatActivity {
 
     private void initBackgrounds() {
         view.addBackground(new Background(this, width, height, "layer_0", 100));
-        view.addBackground(new Background(this, width, height, "layer_1", 135));
+        view.addBackground(new Background(this, width, height, "layer_1", 125));
+        view.addBackground(new Background(this, width, height, "layer_2", 300));
     }
 
     private void initSpawnPoints() {
@@ -78,16 +71,6 @@ public class GameActivity extends AppCompatActivity {
         ally.setX(w / 2);
         ally.setY(h * 0.75f);
         model.getEntityManager().setPlayerEntity(ally);
-    }
-
-    private float randomX() {
-        Random r = new Random();
-        return r.nextFloat() * width;
-    }
-
-    private float randomY() {
-        Random r = new Random();
-        return r.nextFloat() * height;
     }
 
 }

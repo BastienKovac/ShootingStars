@@ -3,6 +3,9 @@ package network.iut.org.flappydragon.entities;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import java.util.AbstractMap;
+import java.util.Map;
+
 import network.iut.org.flappydragon.R;
 import network.iut.org.flappydragon.util.GraphicsUtil;
 
@@ -27,13 +30,13 @@ public class PlayerShip extends AbstractEntity {
     }
 
     @Override
-    protected Bitmap[] getFrames(Context context) {
+    protected Map.Entry<String, Bitmap[]> getFrames(Context context) {
         Bitmap[] frames = new Bitmap[4];
         frames[0] = GraphicsUtil.getBitmap(context, R.drawable.player_ship_frame1);
         frames[1] = GraphicsUtil.getBitmap(context, R.drawable.player_ship_frame2);
         frames[2] = GraphicsUtil.getBitmap(context, R.drawable.player_ship_frame3);
         frames[3] = GraphicsUtil.getBitmap(context, R.drawable.player_ship_frame4);
-        return frames;
+        return new AbstractMap.SimpleEntry<>(getClass().getName(), frames);
     }
 
 }
