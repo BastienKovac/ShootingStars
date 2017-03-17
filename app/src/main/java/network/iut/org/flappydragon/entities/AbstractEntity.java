@@ -131,9 +131,6 @@ public abstract class AbstractEntity implements Drawable {
     public void draw(Canvas canvas) {
         if (canvas != null) {
             update();
-            Paint p = new Paint();
-            p.setColor(Color.GREEN);
-            canvas.drawCircle(getX(), getY(), getRadius(), p);
             canvas.drawBitmap(displayedFrame, getCenterX(), getCenterY(), null);
         }
     }
