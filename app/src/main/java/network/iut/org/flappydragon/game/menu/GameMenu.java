@@ -25,4 +25,30 @@ public class GameMenu extends Activity {
         finish();
     }
 
+    public void btnHardMode(View v){
+        Intent gameActyvity = new Intent(this, GameActivity.class);
+        startActivity(gameActyvity);
+    }
+
+    public void btnImpMode(View v){
+        Intent gameActyvity = new Intent(this, GameActivity.class);
+        startActivity(gameActyvity);
+    }
+
+    public void btnOptions(View v){
+        Intent gameActyvity = new Intent(this, GameActivity.class);
+        startActivity(gameActyvity);
+    }
+
+    public void btnCredits(View v){
+        Intent gameActyvity = new Intent(this, GameActivity.class);
+        startActivity(gameActyvity);
+    }
+
+    public void btnExit(View v){
+        Intent gameActyvity = new Intent(this, GameActivity.class);
+        startActivity(gameActyvity);
+    }
+
+
 }
