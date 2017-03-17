@@ -15,13 +15,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/linearLayout"
-        android:weightSum="10"
+        android:weightSum="1"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
 
 
         <Button
@@ -36,11 +36,12 @@
             android:textScaleX="2"
             android:background="#facd2e"
             android:textColor="#FFFFFF"
-            android:layout_weight="1" />
+            android:layout_weight="0.2" />
 
         <Button
             android:id="@+id/btnLvl2"
             android:clickable="true"
+            android:onClick="btnHardMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -49,11 +50,12 @@
             android:textScaleX="2"
             android:background="#fbb600"
             android:textColor="#FFFFFF"
-            android:layout_weight="1"/>
+            android:layout_weight="0.2"/>
 
         <Button
             android:id="@+id/btnLvl3"
             android:clickable="true"
+            android:onClick="btnImpMode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -62,7 +64,7 @@
             android:textScaleX="2"
             android:background="#fa8100"
             android:textColor="#FFFFFF"
-            android:layout_weight="1" />
+            android:layout_weight="0.2" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -71,13 +73,14 @@
             android:weightSum="2"
             >
             <Button
-                android:id="@+id/btnoption"
+                android:id="@+id/btnoptions"
                 android:clickable="true"
+                android:onClick="btnOptions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:padding="10dp"
-                android:text="Option"
+                android:text="Options"
                 android:textScaleX="2"
                 android:background="#0162a0"
                 android:textColor="#FFFFFF"
@@ -85,13 +88,14 @@
 
 
             <Button
-                android:id="@+id/btncredit"
+                android:id="@+id/btncredits"
                 android:clickable="true"
+                android:onClick="btnCredits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:padding="10dp"
-                android:text="Credit"
+                android:text="Credits"
                 android:textScaleX="2"
                 android:background="#0162a0"
                 android:textColor="#FFFFFF"
@@ -102,6 +106,7 @@
         <Button
             android:id="@+id/btnExit"
             android:clickable="true"
+            android:onClick="btnExit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -110,7 +115,7 @@
             android:textScaleX="2"
             android:background="#115077"
             android:textColor="#FFFFFF"
-            android:layout_weight="1" />
+            android:layout_weight="0.2" />
 
     </LinearLayout>
 
