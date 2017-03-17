@@ -1,58 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_game_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="network.iut.org.flappydragon.game.menu.GameMenu">
+    android:background="@drawable/layer_0">
 
-    <Button
-        android:text="Exit"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_exit"
+        android:background="@drawable/menu_wall"
+        android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:weightSum="1"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true">
 
-    <Button
-        android:text="Button LVL 3"
+
+
+        <Button
+            android:id="@+id/btnLvl1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="10dp"
+            android:text="Easy Mode"
+            android:textScaleX="3"
+            android:background="#39A6CE"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.25" />
+
+        <!-- android:background="#39A6CE" -->
+        <Button
+            android:id="@+id/btnFb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="10dp"
+            android:text="Hard Mode"
+            android:textScaleX="3"
+            android:background="#0162a0"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.25" />
+
+        <Button
+            android:id="@+id/btnTwitter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="10dp"
+            android:text="Imposible Mode"
+            android:textScaleX="3"
+            android:background="#DF4B39"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.25" />
+
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="10dp"
+            android:text="Exit"
+            android:textScaleX="3"
+            android:background="#9882a9"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.25" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_lvl3"
-        android:layout_centerVertical="true"
+        android:background="@drawable/menu_title"
+        android:padding="2dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="Button LVL 2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_lvl2"
-        android:layout_above="@+id/button_lvl3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="Button LVL 1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_lvl1"
-        android:layout_above="@+id/button_lvl2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
+<<<<<<< HEAD
         android:layout_alignParentEnd="true" />
 
     <ImageView
@@ -64,4 +98,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true" />
 
+=======
+        android:layout_alignParentEnd="true">
+    </LinearLayout>
+>>>>>>> 2a2ba6695848f99e9fa0fe45aa1d76afee32cef3
 </RelativeLayout>
