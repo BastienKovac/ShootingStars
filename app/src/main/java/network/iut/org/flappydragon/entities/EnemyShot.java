@@ -22,11 +22,6 @@ public class EnemyShot extends Shot {
     }
 
     @Override
-    public void moveShoot() {
-        setY(getY() + getRelativeSpeed());
-    }
-
-    @Override
     protected Map.Entry<String, Bitmap[]> getFrames(Context context) {
         return new AbstractMap.SimpleEntry<>(getClass().getName(), new Bitmap[] {GraphicsUtil.getBitmap(context, R.drawable.shot_frame2)});
     }

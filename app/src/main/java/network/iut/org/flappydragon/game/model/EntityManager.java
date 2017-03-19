@@ -78,13 +78,12 @@ public class EntityManager {
     }
 
     public void makeEnemiesShoot(Context context, int frequency) {
+        if (playerEntity == null) {
+            return;
+        }
         for (AbstractEntity entity : enemyEntities) {
             if (entity.getAge() % frequency == 0) {
-                Random r = new Random();
-                float rnd = r.nextFloat();
-                float x = context.getResources().getDisplayMetrics().widthPixels * rnd;
-                float y = context.getResources().getDisplayMetrics().heightPixels + 1;
-                this.enemyShots.add(entity.shoot(context, x, y));
+                this.enemyShots.add(entity.shoot(context, playerEntity.getX(), playerEntity.getY()));
             }
         }
     }

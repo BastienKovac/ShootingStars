@@ -49,10 +49,10 @@ public class LossDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.btn_no:
                 Intent i = new Intent(associatedView.getContext(), GameMenu.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 associatedView.getContext().startActivity(i);
-                ((Activity) associatedView.getContext()).finish();
                 dismiss();
-                break;
+                return;
             default:
                 break;
         }

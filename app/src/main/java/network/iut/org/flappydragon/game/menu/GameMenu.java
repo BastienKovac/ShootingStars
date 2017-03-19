@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import network.iut.org.flappydragon.R;
 import network.iut.org.flappydragon.game.GameActivity;
+import network.iut.org.flappydragon.util.SoundPoolUtil;
 
 public class GameMenu extends Activity {
 
@@ -16,39 +17,42 @@ public class GameMenu extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SoundPoolUtil.init(this);
+        SoundPoolUtil.getInstance().startBackgroundMusic();
         setContentView(R.layout.activity_game_menu);
     }
 
     public void btnEasyMode(View v){
-        Intent gameActyvity = new Intent(this, GameActivity.class);
-        startActivity(gameActyvity);
+        Intent gameActivity = new Intent(this, GameActivity.class);
+        gameActivity.putExtra("Difficulty", 1);
+        startActivity(gameActivity);
         finish();
     }
 
     public void btnHardMode(View v){
-        Intent gameActyvity = new Intent(this, GameActivity.class);
-        startActivity(gameActyvity);
+        Intent gameActivity = new Intent(this, GameActivity.class);
+        gameActivity.putExtra("Difficulty", 2);
+        startActivity(gameActivity);
+        finish();
     }
 
     public void btnImpMode(View v){
-        Intent gameActyvity = new Intent(this, GameActivity.class);
-        startActivity(gameActyvity);
+        Intent gameActivity = new Intent(this, GameActivity.class);
+        gameActivity.putExtra("Difficulty", 3);
+        startActivity(gameActivity);
+        finish();
     }
 
     public void btnOptions(View v){
-        Intent gameActyvity = new Intent(this, GameActivity.class);
-        startActivity(gameActyvity);
+        Intent gameActivity = new Intent(this, GameActivity.class);
+        startActivity(gameActivity);
+        finish();
     }
 
     public void btnCredits(View v){
-        Intent gameActyvity = new Intent(this, GameActivity.class);
-        startActivity(gameActyvity);
+        Intent gameActivity = new Intent(this, GameActivity.class);
+        startActivity(gameActivity);
+        finish();
     }
-
-    public void btnExit(View v){
-        Intent gameActyvity = new Intent(this, GameActivity.class);
-        startActivity(gameActyvity);
-    }
-
 
 }

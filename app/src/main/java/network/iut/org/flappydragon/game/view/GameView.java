@@ -18,6 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Handler;
 
+import network.iut.org.flappydragon.entities.FrameHolder;
 import network.iut.org.flappydragon.game.view.background.Background;
 import network.iut.org.flappydragon.game.model.GameModel;
 
@@ -25,7 +26,6 @@ public class GameView extends SurfaceView implements Runnable {
 
     private static final long FPS = 30;
 
-    private List<Background> backgrounds;
     private SurfaceHolder holder;
     private GameModel model;
 
@@ -38,7 +38,6 @@ public class GameView extends SurfaceView implements Runnable {
     public GameView(Context context) {
         super(context);
         holder = getHolder();
-        backgrounds = new ArrayList<>();
         resume();
     }
 
@@ -114,10 +113,6 @@ public class GameView extends SurfaceView implements Runnable {
         resume();
     }
 
-    public void addBackground(Background bg) {
-        backgrounds.add(bg);
-    }
-
     private void draw() {
         while(!holder.getSurface().isValid()) {
             try { Thread.sleep(10); } catch (InterruptedException e) { e.printStackTrace(); }
@@ -136,7 +131,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void drawCanvas(Canvas canvas) {
-        for (Background bg : backgrounds) {
+        for (Background bg : FrameHolder.getInstance().getBackgrounds()) {
             bg.update(FPS);
             drawBackground(canvas, bg);
         }

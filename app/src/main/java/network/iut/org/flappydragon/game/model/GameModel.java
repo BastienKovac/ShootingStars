@@ -15,28 +15,42 @@ import network.iut.org.flappydragon.entities.CircleEnemyShip;
 
 public class GameModel {
 
-    private static final int REF_FREQ_SPAWN = 20;
-    private static final int REF_FREQ_PATTERN = REF_FREQ_SPAWN * 1;
-    private static final int REF_FREQ_PLAYER_SHOOTING = REF_FREQ_SPAWN;
-    private static final int REF_FREQ_ENEMY_SHOOTING = REF_FREQ_PLAYER_SHOOTING * 4;
+    private int refFreqSpawn;
+    private int refFreqPatterns;
+    private int refFreqPlayerShooting;
+    private int refFreqEnemyShooting;
 
     private EntityManager entityManager;
     private int frequencySpawn = 0;
-    private int frequencyPattern = REF_FREQ_PATTERN;
-    private int playerShotFreq = REF_FREQ_PLAYER_SHOOTING;
+    private int frequencyPattern;
+    private int playerShotFreq;
 
     private Deque<PointF> referenceTrajectory;
 
+    private int difficultyMode;
 
-    public GameModel() {
+
+    public GameModel(int difficultyMode) {
         entityManager = new EntityManager();
         referenceTrajectory = Patterns.getInstance().getRandomPattern();
+        this.difficultyMode = difficultyMode;
+        initDifficulty();
+    }
+
+    private void initDifficulty() {
+        this.refFreqSpawn = 30 / difficultyMode;
+        this.refFreqPatterns = refFreqSpawn * (10 / difficultyMode);
+        this.refFreqPlayerShooting = refFreqSpawn;
+        this.refFreqEnemyShooting = refFreqPlayerShooting * (3 / difficultyMode);
+
+        this.frequencyPattern = refFreqPatterns;
+        this.playerShotFreq = refFreqPlayerShooting;
     }
 
     public void reinitialize(Context context) {
         frequencySpawn = 0;
-        frequencyPattern = REF_FREQ_PATTERN;
-        playerShotFreq = REF_FREQ_PLAYER_SHOOTING;
+        frequencyPattern = refFreqPatterns;
+        playerShotFreq = refFreqPlayerShooting;
         entityManager.reinitialize(context);
     }
 
@@ -61,7 +75,7 @@ public class GameModel {
     }
 
     private void updatePattern() {
-        if (frequencyPattern == REF_FREQ_PATTERN) {
+        if (frequencyPattern == refFreqPatterns) {
             referenceTrajectory = Patterns.getInstance().getRandomPattern();
             frequencyPattern = 0;
         } else {
@@ -70,7 +84,7 @@ public class GameModel {
     }
 
     private void updateSpawn(Context context) {
-        if (frequencySpawn == REF_FREQ_SPAWN) {
+        if (frequencySpawn == refFreqSpawn) {
             AbstractEntity enemy = new CircleEnemyShip(context);
             if (referenceTrajectory != null) {
                 enemy.setTrajectory(((ArrayDeque) referenceTrajectory).clone());
@@ -83,8 +97,8 @@ public class GameModel {
     }
 
     private void updateShots(Context context) {
-        entityManager.makeEnemiesShoot(context, REF_FREQ_ENEMY_SHOOTING);
-        if (playerShotFreq == REF_FREQ_PLAYER_SHOOTING) {
+        entityManager.makeEnemiesShoot(context, refFreqEnemyShooting);
+        if (playerShotFreq == refFreqPlayerShooting) {
             entityManager.addPlayerShot(context);
             playerShotFreq = 0;
         } else {
