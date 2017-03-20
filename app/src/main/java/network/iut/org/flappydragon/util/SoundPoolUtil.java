@@ -23,7 +23,6 @@ public class SoundPoolUtil {
     private int idExplosion;
     private int idLaser;
 
-    private Thread bgMusic;
     private MediaPlayer player;
     private boolean running;
 
@@ -45,43 +44,46 @@ public class SoundPoolUtil {
     }
 
     private void initBackgroundMusic(final Context context) {
-        bgMusic = new Thread() {
-            @Override
-            public void run() {
-                player = MediaPlayer.create(context, R.raw.shooting_stars);
-                player.setLooping(true); // Set looping
-                player.setVolume(0.2f, 0.2f);
-                player.start();
-            }
-        };
+        player = MediaPlayer.create(context, R.raw.shooting_stars);
+        player.setLooping(true); // Set looping
+        changeMusicVolume(PreferencesUtil.getMusicVolume());
     }
 
     public static void init(Context context) {
-        instance = new SoundPoolUtil(context);
+        if (instance == null) {
+            instance = new SoundPoolUtil(context);
+        }
     }
 
     public static SoundPoolUtil getInstance() {
         return instance;
     }
 
+    public void changeMusicVolume(int newRatio) {
+        float volume = 0.5f * (newRatio / 5f);
+        player.setVolume(volume, volume);
+    }
+
     public void playExplosion() {
-        pool.play(idExplosion, 1.5f, 1.5f, 1, 0, 1);
+        float volume = 0.5f * (PreferencesUtil.getSFXVolume() / 5f);
+        pool.play(idExplosion, volume, volume, 1, 0, 1);
     }
 
     public void playLaser() {
-        pool.play(idLaser, 0.10f, 0.10f, 1, 0, 1);
+        float volume = 0.1f * (PreferencesUtil.getSFXVolume() / 5f);
+        pool.play(idLaser, volume, volume, 1, 0, 1);
     }
 
     public void startBackgroundMusic() {
-        if (!running) {
-            bgMusic.start();
+        if (!running && PreferencesUtil.isMusicEnabled()) {
+            player.start();
             running = true;
         }
     }
 
     public void stopBackgroundMusic() {
         if (running) {
-            bgMusic.interrupt();
+            player.stop();
             running = false;
         }
     }

@@ -1,13 +1,18 @@
 package network.iut.org.flappydragon.game;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
 import network.iut.org.flappydragon.R;
+import network.iut.org.flappydragon.game.menu.GameMenu;
 import network.iut.org.flappydragon.util.PreferencesUtil;
+import network.iut.org.flappydragon.util.SoundPoolUtil;
 
 public class OptionsActivity extends AppCompatActivity {
 
@@ -16,51 +21,33 @@ public class OptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
-        final Switch s = (Switch) findViewById(R.id.enable_music);
-        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                PreferencesUtil.setMusicEnabled(s.isSelected());
-            }
-        });
-        s.setSelected(PreferencesUtil.isMusicEnabled());
+        Switch s = (Switch) findViewById(R.id.enable_music);
+        s.setChecked(PreferencesUtil.isMusicEnabled());
 
-        final SeekBar musicBar = (SeekBar) findViewById(R.id.music_volume);
-        musicBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                PreferencesUtil.setMusicVolume(musicBar.getProgress());
-            }
-        });
+        SeekBar musicBar = (SeekBar) findViewById(R.id.music_volume);
         musicBar.setProgress(PreferencesUtil.getMusicVolume());
 
-        final SeekBar sfxBar = (SeekBar) findViewById(R.id.sound_volume);
-        sfxBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                PreferencesUtil.setMusicVolume(musicBar.getProgress());
-            }
-        });
+        SeekBar sfxBar = (SeekBar) findViewById(R.id.sound_volume);
         sfxBar.setProgress(PreferencesUtil.getSFXVolume());
     }
+
+    public void backButton(View v) {
+        Switch s = (Switch) findViewById(R.id.enable_music);
+        SeekBar musicBar = (SeekBar) findViewById(R.id.music_volume);
+        SeekBar sfxBar = (SeekBar) findViewById(R.id.sound_volume);
+
+        if (!s.isChecked()) {
+            SoundPoolUtil.getInstance().stopBackgroundMusic();
+        }
+        SoundPoolUtil.getInstance().changeMusicVolume(musicBar.getProgress());
+
+        PreferencesUtil.setMusicEnabled(s.isChecked());
+        PreferencesUtil.setMusicVolume(musicBar.getProgress());
+        PreferencesUtil.setSfxVolume(sfxBar.getProgress());
+
+        Intent gameActivity = new Intent(this, GameMenu.class);
+        startActivity(gameActivity);
+        finish();
+    }
+
 }

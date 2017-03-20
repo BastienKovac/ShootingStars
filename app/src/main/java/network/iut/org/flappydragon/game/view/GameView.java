@@ -24,7 +24,8 @@ import network.iut.org.flappydragon.game.model.GameModel;
 
 public class GameView extends SurfaceView implements Runnable {
 
-    private static final long FPS = 30;
+    private static final long FPS = 60;
+    private int frameFreq;
 
     private SurfaceHolder holder;
     private GameModel model;
@@ -89,6 +90,11 @@ public class GameView extends SurfaceView implements Runnable {
     @Override
     public void run() {
         if (model != null) {
+            frameFreq++;
+            if (frameFreq == 60) {
+                frameFreq = 0;
+                model.getEntityManager().incrementScore();
+            }
             if (!model.updateStatus(getContext())) {
                 ((Activity)getContext()).runOnUiThread(new Runnable() {
                     @Override
@@ -123,7 +129,8 @@ public class GameView extends SurfaceView implements Runnable {
             Paint p = new Paint();
             p.setColor(Color.YELLOW);
             p.setTextSize(30);
-            canvas.drawText("" + model.getEntityManager().getScore(), 20, 40, p);
+            String txt = model.getEntityManager().getScore() + " (x" + model.getDifficultyMode() + ")";
+            canvas.drawText(txt, 20, 40, p);
             holder.unlockCanvasAndPost(canvas);
         } catch (Exception ignored) {
 

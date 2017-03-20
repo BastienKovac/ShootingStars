@@ -24,6 +24,7 @@ public class Background {
         yClip = 0;
         speed = s;
         bg = GraphicsUtil.getBitmap(context, w, h, resID);
+        bg = Bitmap.createScaledBitmap(bg, w, h, false);
 
         width = bg.getWidth();
         height = bg.getHeight();

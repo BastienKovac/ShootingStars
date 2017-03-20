@@ -31,9 +31,10 @@ public class EntityManager {
     private List<Explosion> explosionsToPurge;
 
     private int score;
+    private int multiplier;
 
 
-    public EntityManager() {
+    public EntityManager(int multiplier) {
         this.enemyEntities = new ArrayList<>();
         this.toPurge = new ArrayList<>();
         this.explosions = new ArrayList<>();
@@ -41,6 +42,7 @@ public class EntityManager {
         this.playerShots = new ArrayList<>();
         this.enemyShots = new ArrayList<>();
         this.score = 0;
+        this.multiplier = multiplier;
     }
 
     public void reinitialize(Context context) {
@@ -96,7 +98,7 @@ public class EntityManager {
         for (AbstractEntity entity : enemyEntities) {
             for (AbstractEntity shot : playerShots) {
                 if (shot.collideWith(entity)) {
-                    score++;
+                    score += (10 * multiplier);
                     toPurge.add(entity);
                     toPurge.add(shot);
                     explode(entity);
@@ -104,6 +106,10 @@ public class EntityManager {
             }
         }
         purge();
+    }
+
+    public void incrementScore() {
+        this.score += multiplier;
     }
 
     public boolean updatePlayerStatus() {

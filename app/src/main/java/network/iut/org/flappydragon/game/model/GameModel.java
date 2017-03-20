@@ -31,9 +31,9 @@ public class GameModel {
 
 
     public GameModel(int difficultyMode) {
-        entityManager = new EntityManager();
-        referenceTrajectory = Patterns.getInstance().getRandomPattern();
         this.difficultyMode = difficultyMode;
+        entityManager = new EntityManager(difficultyMode);
+        referenceTrajectory = Patterns.getInstance().getRandomPattern();
         initDifficulty();
     }
 
@@ -64,6 +64,10 @@ public class GameModel {
         updateExplosions();
         entityManager.followEnemyTrajectories();
         return status;
+    }
+
+    public int getDifficultyMode() {
+        return difficultyMode;
     }
 
     private void updateExplosions() {

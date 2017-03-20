@@ -41,12 +41,6 @@ public class GameActivity extends AppCompatActivity {
         initSpawnPoints();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SoundPoolUtil.getInstance().stopBackgroundMusic();
-    }
-
     private void initDimensions() {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();

@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import network.iut.org.flappydragon.R;
 import network.iut.org.flappydragon.game.GameActivity;
+import network.iut.org.flappydragon.game.OptionsActivity;
+import network.iut.org.flappydragon.util.PreferencesUtil;
 import network.iut.org.flappydragon.util.SoundPoolUtil;
 
 public class GameMenu extends Activity {
@@ -17,6 +19,7 @@ public class GameMenu extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PreferencesUtil.loadPreferences(this);
         SoundPoolUtil.init(this);
         SoundPoolUtil.getInstance().startBackgroundMusic();
         setContentView(R.layout.activity_game_menu);
@@ -44,7 +47,7 @@ public class GameMenu extends Activity {
     }
 
     public void btnOptions(View v){
-        Intent gameActivity = new Intent(this, GameActivity.class);
+        Intent gameActivity = new Intent(this, OptionsActivity.class);
         startActivity(gameActivity);
         finish();
     }
