@@ -1,8 +1,13 @@
 package network.iut.org.flappydragon.game.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -11,26 +16,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Handler;
 
+import network.iut.org.flappydragon.entities.FrameHolder;
 import network.iut.org.flappydragon.game.view.background.Background;
 import network.iut.org.flappydragon.game.model.GameModel;
 
 public class GameView extends SurfaceView implements Runnable {
 
-    private static final long FPS = 60;
+    private static final long FPS = 30;
 
-    private List<Background> backgrounds;
     private SurfaceHolder holder;
     private GameModel model;
 
     private Timer timer = new Timer();
     private TimerTask timerTask;
 
+    private boolean dialogDisplayed = true;
+
 
     public GameView(Context context) {
         super(context);
         holder = getHolder();
-        backgrounds = new ArrayList<>();
         resume();
     }
 
@@ -82,7 +89,21 @@ public class GameView extends SurfaceView implements Runnable {
     @Override
     public void run() {
         if (model != null) {
-            model.updateStatus(getContext());
+            if (!model.updateStatus(getContext())) {
+                ((Activity)getContext()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!dialogDisplayed) {
+                            LossDialog dialog = new LossDialog(GameView.this);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                            dialog.show();
+                            dialogDisplayed = true;
+                        }
+                    }
+                });
+            } else {
+                dialogDisplayed = false;
+            }
         }
         draw();
     }
@@ -92,17 +113,17 @@ public class GameView extends SurfaceView implements Runnable {
         resume();
     }
 
-    public void addBackground(Background bg) {
-        backgrounds.add(bg);
-    }
-
     private void draw() {
         while(!holder.getSurface().isValid()) {
             try { Thread.sleep(10); } catch (InterruptedException e) { e.printStackTrace(); }
         }
         Canvas canvas = holder.lockCanvas();
-        drawCanvas(canvas);
         try {
+            drawCanvas(canvas);
+            Paint p = new Paint();
+            p.setColor(Color.YELLOW);
+            p.setTextSize(30);
+            canvas.drawText("" + model.getEntityManager().getScore(), 20, 40, p);
             holder.unlockCanvasAndPost(canvas);
         } catch (Exception ignored) {
 
@@ -110,7 +131,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void drawCanvas(Canvas canvas) {
-        for (Background bg : backgrounds) {
+        for (Background bg : FrameHolder.getInstance().getBackgrounds()) {
             bg.update(FPS);
             drawBackground(canvas, bg);
         }

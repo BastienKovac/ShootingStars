@@ -25,6 +25,7 @@ public class SoundPoolUtil {
 
     private Thread bgMusic;
     private MediaPlayer player;
+    private boolean running;
 
 
     private SoundPoolUtil(Context context) {
@@ -72,11 +73,17 @@ public class SoundPoolUtil {
     }
 
     public void startBackgroundMusic() {
-        bgMusic.start();
+        if (!running) {
+            bgMusic.start();
+            running = true;
+        }
     }
 
     public void stopBackgroundMusic() {
-        bgMusic.interrupt();
+        if (running) {
+            bgMusic.interrupt();
+            running = false;
+        }
     }
 
 }

@@ -1,13 +1,17 @@
 package network.iut.org.flappydragon.game.view;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
 import network.iut.org.flappydragon.R;
+import network.iut.org.flappydragon.game.GameActivity;
+import network.iut.org.flappydragon.game.menu.GameMenu;
 
 /**
  * Created by Android on 17/03/2017.
@@ -21,6 +25,7 @@ public class LossDialog extends Dialog implements View.OnClickListener {
 
     public LossDialog(GameView associatedView) {
         super(associatedView.getContext());
+        setCanceledOnTouchOutside(false);
         this.associatedView = associatedView;
     }
 
@@ -40,13 +45,16 @@ public class LossDialog extends Dialog implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_yes:
                 associatedView.reinitialize();
-                break;
-            case R.id.btn_no:
                 dismiss();
                 break;
+            case R.id.btn_no:
+                Intent i = new Intent(associatedView.getContext(), GameMenu.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                associatedView.getContext().startActivity(i);
+                dismiss();
+                return;
             default:
                 break;
         }
-        dismiss();
     }
 }

@@ -97,8 +97,8 @@ public abstract class AbstractEntity implements Drawable {
         float diffX = targetX - this.x;
         float diffY = targetY - this.y;
 
-        this.x += diffX * relativeSpeed;
-        this.y += diffY * relativeSpeed;
+        this.x += diffX * getRelativeSpeed();
+        this.y += diffY * getRelativeSpeed();
     }
 
     public boolean followTrajectory() {

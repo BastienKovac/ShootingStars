@@ -3,10 +3,13 @@ package network.iut.org.flappydragon.entities;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import network.iut.org.flappydragon.R;
+import network.iut.org.flappydragon.game.view.background.Background;
 import network.iut.org.flappydragon.util.GraphicsUtil;
 
 /**
@@ -18,13 +21,17 @@ public class FrameHolder {
     private static FrameHolder instance;
 
     private Map<String, Bitmap[]> frames;
+    private List<Background> backgrounds;
     private Bitmap[] framesExplosion;
 
     private Bitmap playerShot;
 
+    private boolean backgroundInitialized;
+
 
     private FrameHolder() {
         this.frames = new HashMap<>();
+        this.backgrounds = new ArrayList<>();
     }
 
     public static FrameHolder getInstance() {
@@ -32,6 +39,19 @@ public class FrameHolder {
             instance = new FrameHolder();
         }
         return instance;
+    }
+
+    public void initBackgrounds(Context context, int width, int height) {
+        if (!backgroundInitialized) {
+            backgrounds.add(new Background(context, width, height, "layer_0", 100));
+            backgrounds.add(new Background(context, width, height, "layer_1", 125));
+            backgrounds.add(new Background(context, width, height, "layer_2", 300));
+            backgroundInitialized = true;
+        }
+    }
+
+    public List<Background> getBackgrounds() {
+        return backgrounds;
     }
 
     public void initPlayerShot(Context context) {

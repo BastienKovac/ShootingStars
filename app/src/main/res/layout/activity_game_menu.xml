@@ -102,21 +102,6 @@
                 android:layout_weight="1"/>
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/btnExit"
-            android:clickable="true"
-            android:onClick="btnExit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:padding="10dp"
-            android:text="Exit"
-            android:textScaleX="2"
-            android:background="#115077"
-            android:textColor="#FFFFFF"
-            android:layout_weight="0.2" />
-
     </LinearLayout>
 
     <LinearLayout
