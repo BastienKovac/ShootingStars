@@ -17,7 +17,7 @@ public class PlayerShip extends AbstractEntity {
 
     public PlayerShip(Context context) {
         super(context);
-        setRelativeSpeed(0.14f);
+        setRelativeSpeed(0.35f);
     }
 
     @Override

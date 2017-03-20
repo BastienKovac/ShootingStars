@@ -39,9 +39,9 @@ public class GameModel {
 
     private void initDifficulty() {
         this.refFreqSpawn = 30 / difficultyMode;
-        this.refFreqPatterns = refFreqSpawn * (10 / difficultyMode);
-        this.refFreqPlayerShooting = refFreqSpawn;
-        this.refFreqEnemyShooting = refFreqPlayerShooting * (3 / difficultyMode);
+        this.refFreqPatterns = refFreqSpawn * (3 / difficultyMode);
+        this.refFreqPlayerShooting = refFreqSpawn / (3 / difficultyMode);
+        this.refFreqEnemyShooting = refFreqPlayerShooting * (10 / difficultyMode);
 
         this.frequencyPattern = refFreqPatterns;
         this.playerShotFreq = refFreqPlayerShooting;
