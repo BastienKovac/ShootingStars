@@ -24,6 +24,7 @@ public class SoundPoolUtil {
     private int idBackBtn;
     private int idR2D2;
     private int idWilhelm;
+    private int idBossLaugn;
 
     private MediaPlayer player;
     private boolean running;
@@ -46,6 +47,7 @@ public class SoundPoolUtil {
         idBackBtn = pool.load(context, R.raw.backbtn, 1);
         idR2D2 = pool.load(context, R.raw.r2d2, 1);
         idWilhelm = pool.load(context, R.raw.criwilhelm, 1);
+        idBossLaugn = pool.load(context, R.raw.bosslaugh, 1);
         initBackgroundMusic(context);
     }
 
@@ -96,6 +98,10 @@ public class SoundPoolUtil {
     public void playWilhelm(){
         float volume = 0.5f * (PreferencesUtil.getSFXVolume() / 5f);
         pool.play(idWilhelm, volume, volume, 1, 0, 1);
+    }
+    public void playidBossLaugn(){
+        float volume = 0.5f * (PreferencesUtil.getSFXVolume() / 5f);
+        pool.play(idBossLaugn, volume, volume, 1, 0, 1);
     }
 
     public void startBackgroundMusic() {
