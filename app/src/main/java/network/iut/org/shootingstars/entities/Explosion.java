@@ -2,6 +2,9 @@ package network.iut.org.shootingstars.entities;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.PointF;
+
+import java.util.Random;
 
 import network.iut.org.shootingstars.interfaces.Drawable;
 
@@ -23,6 +26,14 @@ public class Explosion implements Drawable {
         this.currentIndex = 0;
     }
 
+    public Explosion(PointF source) {
+        this.x = source.x;
+        this.y = source.y;
+        this.frames = FrameHolder.getInstance().getFramesExplosion();
+        Random rnd = new Random();
+        this.currentIndex = rnd.nextInt((0 + 15) + 1) - 15;
+    }
+
     public boolean isStarted() {
         return currentIndex == 0;
     }
@@ -39,8 +50,10 @@ public class Explosion implements Drawable {
     @Override
     public void draw(Canvas canvas) {
         if (!isDone()) {
-            Bitmap toDraw = frames[currentIndex];
-            canvas.drawBitmap(toDraw, x - (toDraw.getWidth() / 2), y - (toDraw.getHeight() / 2), null);
+            if (currentIndex >= 0) {
+                Bitmap toDraw = frames[currentIndex];
+                canvas.drawBitmap(toDraw, x - (toDraw.getWidth() / 2), y - (toDraw.getHeight() / 2), null);
+            }
             currentIndex++;
         }
     }

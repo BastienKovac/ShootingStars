@@ -2,9 +2,11 @@ package network.iut.org.shootingstars.entities;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.PointF;
 
 import java.util.AbstractMap;
 import java.util.Map;
+import java.util.Random;
 
 import network.iut.org.shootingstars.game.model.Patterns;
 
@@ -21,6 +23,8 @@ public class Boss extends AbstractEntity {
     private float r;
     private float currentAngleClockwiseOne, currentAngleCounterClockwiseOne;
     private float currentAngleClockwiseTwo, currentAngleCounterClockwiseTwo;
+
+    private int hp;
 
 
     public Boss(Context context) {
@@ -46,6 +50,27 @@ public class Boss extends AbstractEntity {
         shots[2] = shootClockwiseTwo(context);
         shots[3] = shootCounterClockwiseTwo(context);
         return shots;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void decrementHp() {
+        this.hp--;
+    }
+
+    public PointF getRandomExplosionPoint() {
+        Random rnd = new Random();
+        return new PointF(displayedFrame.getWidth() * rnd.nextFloat(), displayedFrame.getHeight() * rnd.nextFloat());
+    }
+
+    public boolean isDestroyed() {
+        return this.hp == 0;
     }
 
     private Shot shootClockwiseOne(Context context) {

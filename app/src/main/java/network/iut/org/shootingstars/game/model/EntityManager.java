@@ -35,7 +35,8 @@ public class EntityManager {
     private int score;
     private int multiplier;
 
-    private boolean left;
+    private boolean leftCannon;
+    private boolean win;
 
 
     public EntityManager(int multiplier) {
@@ -75,6 +76,13 @@ public class EntityManager {
 
     public void spawnBoss(Context context) {
         bossShip = new Boss(context);
+        if (multiplier == 1) {
+            bossShip.setHp(90);
+        } else if (multiplier == 2) {
+            bossShip.setHp(300);
+        } else {
+            bossShip.setHp(600);
+        }
     }
 
     public boolean isEnemyEmpty() {
@@ -103,7 +111,7 @@ public class EntityManager {
                 this.enemyShots.add(entity.shoot(context, playerEntity.getX(), playerEntity.getY()));
             }
         }
-        if (bossShip != null) {
+        if (!win && bossShip != null) {
             if (bossShip.getAge() % (frequency / 10) == 0) {
                 Shot[] shots = bossShip.shootWhips(context);
                 for (Shot shot : shots) {
@@ -111,19 +119,26 @@ public class EntityManager {
                 }
             }
             if (bossShip.getAge() % frequency == 0) {
-                if (left) {
+                if (leftCannon) {
                     this.enemyShots.add(bossShip.shootLeftCanon(context, playerEntity.getX(), playerEntity.getY()));
-                    left = false;
+                    leftCannon = false;
                 } else {
                     this.enemyShots.add(bossShip.shootRightCanon(context, playerEntity.getX(), playerEntity.getY()));
-                    left = true;
+                    leftCannon = true;
                 }
             }
         }
     }
 
     private void explode(AbstractEntity entity) {
-        explosions.add(new Explosion(entity));
+        if (entity instanceof Boss) {
+            Boss boss = (Boss) entity;
+            for (int i = 0 ; i < 50 ; i++) {
+                explosions.add(new Explosion(boss.getRandomExplosionPoint()));
+            }
+        } else {
+            explosions.add(new Explosion(entity));
+        }
     }
 
     public void updateCollisions() {
@@ -137,7 +152,26 @@ public class EntityManager {
                 }
             }
         }
+        for (AbstractEntity shot : playerShots) {
+            if (!win && bossShip != null && bossShip.collideWith(shot)) {
+                bossShip.decrementHp();
+                if (bossShip.isDestroyed()) {
+                    explode(bossShip);
+                    score += (1000 * multiplier);
+                    win = true;
+                }
+                toPurge.add(shot);
+                explode(shot);
+            }
+        }
+        if (bossShip != null && win && explosions.isEmpty()) {
+            bossShip = null;
+        }
         purge();
+    }
+
+    public boolean isWin() {
+        return win;
     }
 
     public void incrementScore() {
