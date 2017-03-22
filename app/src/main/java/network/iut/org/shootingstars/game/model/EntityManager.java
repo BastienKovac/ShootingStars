@@ -105,8 +105,10 @@ public class EntityManager {
         }
         if (bossShip != null) {
             if (bossShip.getAge() % (frequency / 10) == 0) {
-               this.enemyShots.add(bossShip.shootClockwise(context));
-               this.enemyShots.add(bossShip.shootCounterClockwise(context));
+                Shot[] shots = bossShip.shootWhips(context);
+                for (Shot shot : shots) {
+                    this.enemyShots.add(shot);
+                }
             }
             if (bossShip.getAge() % frequency == 0) {
                 if (left) {

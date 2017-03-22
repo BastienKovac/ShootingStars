@@ -6,9 +6,7 @@ import android.graphics.Bitmap;
 import java.util.AbstractMap;
 import java.util.Map;
 
-import network.iut.org.shootingstars.R;
 import network.iut.org.shootingstars.game.model.Patterns;
-import network.iut.org.shootingstars.util.GraphicsUtil;
 
 /**
  * Created by Android on 21/03/2017.
@@ -21,7 +19,8 @@ public class Boss extends AbstractEntity {
     private static final float FACTOR_CANNON_Y = (float) (3.0 / 15.0);
 
     private float r;
-    private float currentAngleClockwise, currentAngleCounterClockwise;
+    private float currentAngleClockwiseOne, currentAngleCounterClockwiseOne;
+    private float currentAngleClockwiseTwo, currentAngleCounterClockwiseTwo;
 
 
     public Boss(Context context) {
@@ -29,8 +28,10 @@ public class Boss extends AbstractEntity {
         setRelativeSpeed(0.15f);
         setTrajectory(Patterns.getInstance().getBossPattern());
         this.r = context.getResources().getDisplayMetrics().heightPixels;
-        this.currentAngleClockwise = 0;
-        this.currentAngleCounterClockwise = (float) Math.PI;
+        this.currentAngleClockwiseOne = 0;
+        this.currentAngleCounterClockwiseOne = (float) Math.PI;
+        this.currentAngleClockwiseTwo = (float) Math.PI;
+        this.currentAngleCounterClockwiseTwo = 0;
     }
 
     @Override
@@ -38,19 +39,44 @@ public class Boss extends AbstractEntity {
         return new AbstractMap.SimpleEntry<>(getClass().getName(), new Bitmap[0]);
     }
 
-    public Shot shootClockwise(Context context) {
-        float angle = (float) (currentAngleClockwise % (2 * Math.PI));
+    public Shot[] shootWhips(Context context) {
+        Shot[] shots = new Shot[4];
+        shots[0] = shootClockwiseOne(context);
+        shots[1] = shootCounterClockwiseOne(context);
+        shots[2] = shootClockwiseTwo(context);
+        shots[3] = shootCounterClockwiseTwo(context);
+        return shots;
+    }
+
+    private Shot shootClockwiseOne(Context context) {
+        float angle = (float) (currentAngleClockwiseOne % (2 * Math.PI));
         float x = (float) (getX() + r * Math.cos(angle));
         float y = (float) (getY() + r * Math.sin(angle));
-        currentAngleClockwise += ANGLE_INTERVAL;
+        currentAngleClockwiseOne += ANGLE_INTERVAL;
         return new EnemyShot(context, getX(), getY(), x, y);
     }
 
-    public Shot shootCounterClockwise(Context context) {
-        float angle = (float) (currentAngleCounterClockwise % (2 * Math.PI));
+    private Shot shootCounterClockwiseOne(Context context) {
+        float angle = (float) (currentAngleCounterClockwiseOne % (2 * Math.PI));
         float x = (float) (getX() + r * Math.cos(angle));
         float y = (float) (getY() + r * Math.sin(angle));
-        currentAngleCounterClockwise -= ANGLE_INTERVAL;
+        currentAngleCounterClockwiseOne -= ANGLE_INTERVAL;
+        return new EnemyShot(context, getX(), getY(), x, y);
+    }
+
+    private Shot shootClockwiseTwo(Context context) {
+        float angle = (float) (currentAngleClockwiseTwo % (2 * Math.PI));
+        float x = (float) (getX() + r * Math.cos(angle));
+        float y = (float) (getY() + r * Math.sin(angle));
+        currentAngleClockwiseTwo += ANGLE_INTERVAL;
+        return new EnemyShot(context, getX(), getY(), x, y);
+    }
+
+    private Shot shootCounterClockwiseTwo(Context context) {
+        float angle = (float) (currentAngleCounterClockwiseTwo % (2 * Math.PI));
+        float x = (float) (getX() + r * Math.cos(angle));
+        float y = (float) (getY() + r * Math.sin(angle));
+        currentAngleCounterClockwiseTwo -= ANGLE_INTERVAL;
         return new EnemyShot(context, getX(), getY(), x, y);
     }
 
