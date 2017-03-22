@@ -1,14 +1,13 @@
-package network.iut.org.shootingstars.game;
+package network.iut.org.shootingstars.game.menu;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
 import network.iut.org.shootingstars.R;
-import network.iut.org.shootingstars.game.menu.GameMenu;
 import network.iut.org.shootingstars.util.PreferencesUtil;
 import network.iut.org.shootingstars.util.SoundPoolUtil;
 

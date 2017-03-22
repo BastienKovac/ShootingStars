@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
         <activity
-            android:name="network.iut.org.shootingstars.game.menu.GameMenu"
+            android:name=".game.menu.GameMenu"
             android:label="@string/title_activity_game_menu"
             android:noHistory="true"
             android:screenOrientation="portrait">
@@ -20,10 +20,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="network.iut.org.shootingstars.game.GameActivity"
+            android:name=".game.GameActivity"
             android:noHistory="true"
             android:screenOrientation="portrait" />
-        <activity android:name="network.iut.org.shootingstars.game.OptionsActivity"></activity>
+        <activity android:name=".game.menu.OptionsActivity" />
+        <activity
+            android:name=".game.menu.CreditsActivity"
+            android:label="@string/title_activity_credits"></activity>
     </application>
 
 </manifest>

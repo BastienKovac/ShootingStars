@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/layer_0"
-    tools:context="network.iut.org.shootingstars.game.OptionsActivity">
+    tools:context="network.iut.org.shootingstars.game.menu.OptionsActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -24,7 +24,6 @@
         android:id="@+id/linearLayout"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
-
     </LinearLayout>
 
     <Space
@@ -52,7 +51,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:layout_weight="0.05">
 
         <TextView
             android:text="Music Volume"
@@ -82,23 +83,27 @@
             android:max="10"
             android:id="@+id/sound_volume" />
 
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <Button
-                android:text="Back"
-                android:layout_width="95dp"
-                android:layout_height="wrap_content"
+                android:text="Save and Back"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:onClick="backButton"
-                android:background="#FFFFFF"
+                android:background="#facd2e"
+                android:textColor="#000000"
                 android:id="@+id/back_button"
-                android:layout_marginTop="145dp"
-                android:layout_alignParentTop="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="50dp"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
-
     </LinearLayout>
 
 </LinearLayout>

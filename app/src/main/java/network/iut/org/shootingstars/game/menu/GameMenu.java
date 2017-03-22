@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import network.iut.org.shootingstars.R;
 import network.iut.org.shootingstars.game.GameActivity;
-import network.iut.org.shootingstars.game.OptionsActivity;
 import network.iut.org.shootingstars.util.PreferencesUtil;
 import network.iut.org.shootingstars.util.SoundPoolUtil;
 
