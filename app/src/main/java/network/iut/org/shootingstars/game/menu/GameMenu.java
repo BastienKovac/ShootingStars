@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import network.iut.org.shootingstars.R;
+import network.iut.org.shootingstars.entities.FrameHolder;
 import network.iut.org.shootingstars.game.GameActivity;
 import network.iut.org.shootingstars.util.PreferencesUtil;
 import network.iut.org.shootingstars.util.SoundPoolUtil;
@@ -18,6 +19,7 @@ public class GameMenu extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FrameHolder.getInstance().initBossFrames(this);
         PreferencesUtil.loadPreferences(this);
         SoundPoolUtil.init(this);
         SoundPoolUtil.getInstance().startBackgroundMusic();
@@ -56,7 +58,7 @@ public class GameMenu extends Activity {
     }
 
     public void btnCredits(View v){
-        Intent creditActivity = new Intent(this, GameActivity.class);
+        Intent creditActivity = new Intent(this, CreditsActivity.class);
         SoundPoolUtil.getInstance().playStartBtn();
         startActivity(creditActivity);
         finish();

@@ -2,6 +2,9 @@ package network.iut.org.shootingstars.entities;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.util.AbstractMap;
 import java.util.Map;
@@ -13,7 +16,10 @@ import java.util.Map;
 public class Shot extends AbstractEntity {
 
     private int boundWidth, boundHeight;
-    private float angle;
+    private float dist;
+    private int frame;
+
+    private float originX, originY, targetX, targetY;
 
 
     public Shot(Context context, float originX, float originY, float targetX, float targetY) {
@@ -23,16 +29,21 @@ public class Shot extends AbstractEntity {
         setY(originY);
         this.boundHeight = context.getResources().getDisplayMetrics().heightPixels;
         this.boundWidth = context.getResources().getDisplayMetrics().widthPixels;
-        if (targetX == originX) {
-            this.angle = - (float) Math.PI / 2;
-        } else {
-            this.angle = (float) (Math.atan((targetY - originY) / (targetX - originX)));
-        }
+        this.originX = originX;
+        this.originY = originY;
+        this.targetX = targetX;
+        this.targetY = targetY;
+        dist = (targetX - originX) * (targetX - originX);
+        dist += (targetY - originY) * (targetY - originY);
+        dist = (float) Math.sqrt(dist);
     }
 
     public void moveShoot() {
-        setY(getY() + ((float) Math.sin(angle) * getRelativeSpeed()));
-        setX(getX() + ((float) Math.cos(angle) * getRelativeSpeed()));
+        float d = (frame + 1) * getRelativeSpeed();
+        float ratio = d / dist;
+        setX((1 - ratio) * originX + ratio * targetX);
+        setY((1 - ratio) * originY + ratio * targetY);
+        frame++;
     }
 
     public boolean isOutside() {

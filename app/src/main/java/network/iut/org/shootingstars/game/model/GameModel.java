@@ -17,7 +17,7 @@ import network.iut.org.shootingstars.game.view.GameView;
 
 public class GameModel {
 
-    private static final int BOSS_SPAWN_IN_SECONDS = 10;
+    private static final int BOSS_SPAWN_IN_SECONDS = 1;
 
     private int age;
     private boolean shouldSpawnBoss;
@@ -98,7 +98,7 @@ public class GameModel {
     }
 
     private void updateSpawn(Context context) {
-        if (!shouldSpawnBoss && age / GameView.FPS == BOSS_SPAWN_IN_SECONDS) {
+        if (!shouldSpawnBoss && age / GameView.FPS == BOSS_SPAWN_IN_SECONDS && entityManager.getPlayerEntity() != null) {
             shouldSpawnBoss = true;
         } else if (!shouldSpawnBoss && frequencySpawn == refFreqSpawn) {
             AbstractEntity enemy = new CircleEnemyShip(context);

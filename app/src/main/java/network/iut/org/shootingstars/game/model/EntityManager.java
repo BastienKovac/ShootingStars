@@ -101,6 +101,12 @@ public class EntityManager {
                 this.enemyShots.add(entity.shoot(context, playerEntity.getX(), playerEntity.getY()));
             }
         }
+        if (bossShip != null) {
+            if (bossShip.getAge() % (frequency / 20) == 0) {
+                this.enemyShots.add(bossShip.shootClockwise(context));
+                this.enemyShots.add(bossShip.shootCounterClockwise(context));
+            }
+        }
     }
 
     private void explode(AbstractEntity entity) {

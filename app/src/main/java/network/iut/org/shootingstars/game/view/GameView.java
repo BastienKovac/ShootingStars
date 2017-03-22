@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -111,6 +112,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     public void reinitialize() {
+        frameFreq = 0;
         model.reinitialize(getContext());
         resume();
     }

@@ -58,6 +58,15 @@ public class FrameHolder {
         this.playerShot = GraphicsUtil.getBitmap(context, R.drawable.shot_frame1);
     }
 
+    public void initBossFrames(Context context) {
+        Bitmap[] frames = new Bitmap[4];
+        frames[0] = GraphicsUtil.getBitmap(context, R.drawable.boss_frame1);
+        frames[1] = GraphicsUtil.getBitmap(context, R.drawable.boss_frame2);
+        frames[2] = GraphicsUtil.getBitmap(context, R.drawable.boss_frame3);
+        frames[3] = GraphicsUtil.getBitmap(context, R.drawable.boss_frame4);
+        this.frames.put(Boss.class.getName(), frames);
+    }
+
     public void initExplosionsFrame(Context context) {
         this.framesExplosion = new Bitmap[9];
         Bitmap frame1 = GraphicsUtil.getBitmap(context, R.drawable.explo_frame1);
