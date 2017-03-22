@@ -28,6 +28,7 @@ public class GameMenu extends Activity {
     public void btnEasyMode(View v){
         Intent gameActivity = new Intent(this, GameActivity.class);
         gameActivity.putExtra("Difficulty", 1);
+        SoundPoolUtil.getInstance().playStartBtn();
         startActivity(gameActivity);
         finish();
     }
@@ -35,6 +36,7 @@ public class GameMenu extends Activity {
     public void btnHardMode(View v){
         Intent gameActivity = new Intent(this, GameActivity.class);
         gameActivity.putExtra("Difficulty", 2);
+        SoundPoolUtil.getInstance().playStartBtn();
         startActivity(gameActivity);
         finish();
     }
@@ -42,19 +44,22 @@ public class GameMenu extends Activity {
     public void btnImpMode(View v){
         Intent gameActivity = new Intent(this, GameActivity.class);
         gameActivity.putExtra("Difficulty", 3);
+        SoundPoolUtil.getInstance().playWilhelm();
         startActivity(gameActivity);
         finish();
     }
 
     public void btnOptions(View v){
-        Intent gameActivity = new Intent(this, OptionsActivity.class);
-        startActivity(gameActivity);
+        Intent optActivity = new Intent(this, OptionsActivity.class);
+        SoundPoolUtil.getInstance().playStartBtn();
+        startActivity(optActivity);
         finish();
     }
 
     public void btnCredits(View v){
-        Intent gameActivity = new Intent(this, GameActivity.class);
-        startActivity(gameActivity);
+        Intent creditActivity = new Intent(this, GameActivity.class);
+        SoundPoolUtil.getInstance().playStartBtn();
+        startActivity(creditActivity);
         finish();
     }
 

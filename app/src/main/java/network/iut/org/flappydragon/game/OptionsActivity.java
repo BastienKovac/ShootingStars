@@ -1,11 +1,9 @@
 package network.iut.org.flappydragon.game;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
@@ -46,6 +44,7 @@ public class OptionsActivity extends AppCompatActivity {
         PreferencesUtil.setSfxVolume(sfxBar.getProgress());
 
         Intent gameActivity = new Intent(this, GameMenu.class);
+        SoundPoolUtil.getInstance().playBackBtn();
         startActivity(gameActivity);
         finish();
     }

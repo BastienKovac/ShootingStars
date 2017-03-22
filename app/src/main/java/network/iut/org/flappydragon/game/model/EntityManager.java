@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import network.iut.org.flappydragon.entities.AbstractEntity;
 import network.iut.org.flappydragon.entities.Explosion;
@@ -135,6 +134,7 @@ public class EntityManager {
             }
         }
         if (!status) {
+            SoundPoolUtil.getInstance().playR2D2();
             playerEntity = null;
         }
         purge();
