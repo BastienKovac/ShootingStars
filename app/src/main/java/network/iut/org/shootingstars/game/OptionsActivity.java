@@ -44,6 +44,7 @@ public class OptionsActivity extends AppCompatActivity {
         PreferencesUtil.setSfxVolume(sfxBar.getProgress());
 
         Intent gameActivity = new Intent(this, GameMenu.class);
+        SoundPoolUtil.getInstance().playBackBtn();
         startActivity(gameActivity);
         finish();
     }

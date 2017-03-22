@@ -20,6 +20,10 @@ public class SoundPoolUtil {
 
     private int idExplosion;
     private int idLaser;
+    private int idStartBtn;
+    private int idBackBtn;
+    private int idR2D2;
+    private int idWilhelm;
 
     private MediaPlayer player;
     private boolean running;
@@ -38,6 +42,10 @@ public class SoundPoolUtil {
         }
         idExplosion = pool.load(context, R.raw.explosion, 1);
         idLaser = pool.load(context, R.raw.laser_shot, 1);
+        idStartBtn = pool.load(context, R.raw.startbtn, 1);
+        idBackBtn = pool.load(context, R.raw.backbtn, 1);
+        idR2D2 = pool.load(context, R.raw.r2d2, 1);
+        idWilhelm = pool.load(context, R.raw.criwilhelm, 1);
         initBackgroundMusic(context);
     }
 
@@ -70,6 +78,24 @@ public class SoundPoolUtil {
     public void playLaser() {
         float volume = 0.1f * (PreferencesUtil.getSFXVolume() / 5f);
         pool.play(idLaser, volume, volume, 1, 0, 1);
+    }
+
+    public void playStartBtn(){
+        float volume = 0.5f * (PreferencesUtil.getSFXVolume() / 5f);
+        pool.play(idStartBtn, volume, volume, 1, 0, 1);
+    }
+
+    public void playBackBtn(){
+        float volume = 0.5f * (PreferencesUtil.getSFXVolume() / 5f);
+        pool.play(idBackBtn, volume, volume, 1, 0, 1);
+    }
+    public void playR2D2(){
+        float volume = 0.5f * (PreferencesUtil.getSFXVolume() / 5f);
+        pool.play(idR2D2, volume, volume, 1, 0, 1);
+    }
+    public void playWilhelm(){
+        float volume = 0.5f * (PreferencesUtil.getSFXVolume() / 5f);
+        pool.play(idWilhelm, volume, volume, 1, 0, 1);
     }
 
     public void startBackgroundMusic() {

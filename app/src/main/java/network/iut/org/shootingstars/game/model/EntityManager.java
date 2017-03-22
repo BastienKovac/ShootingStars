@@ -2,7 +2,6 @@ package network.iut.org.shootingstars.game.model;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,6 +153,7 @@ public class EntityManager {
             explode(playerEntity);
         }
         if (!status) {
+            SoundPoolUtil.getInstance().playR2D2();
             playerEntity = null;
         }
         purge();
