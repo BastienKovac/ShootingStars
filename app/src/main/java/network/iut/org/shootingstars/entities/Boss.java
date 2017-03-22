@@ -17,6 +17,8 @@ import network.iut.org.shootingstars.util.GraphicsUtil;
 public class Boss extends AbstractEntity {
 
     private static final float ANGLE_INTERVAL = (float) Math.PI / 24;
+    private static final float FACTOR_CANNON_X = (float) (1.7 / 29.0);
+    private static final float FACTOR_CANNON_Y = (float) (3.0 / 15.0);
 
     private float r;
     private float currentAngleClockwise, currentAngleCounterClockwise;
@@ -50,6 +52,18 @@ public class Boss extends AbstractEntity {
         float y = (float) (getY() + r * Math.sin(angle));
         currentAngleCounterClockwise -= ANGLE_INTERVAL;
         return new EnemyShot(context, getX(), getY(), x, y);
+    }
+
+    public Shot shootRightCanon(Context context, float targetX, float targetY) {
+        float newOriginX = getX() + displayedFrame.getWidth() * FACTOR_CANNON_X;
+        float newOriginY = getY() + displayedFrame.getHeight() * FACTOR_CANNON_Y;
+        return new EnemyShot(context, newOriginX, newOriginY, targetX, targetY);
+    }
+
+    public Shot shootLeftCanon(Context context, float targetX, float targetY) {
+        float newOriginX = getX() - displayedFrame.getWidth() * FACTOR_CANNON_X;
+        float newOriginY = getY() + displayedFrame.getHeight() * FACTOR_CANNON_Y;
+        return new EnemyShot(context, newOriginX, newOriginY, targetX, targetY);
     }
 
 }

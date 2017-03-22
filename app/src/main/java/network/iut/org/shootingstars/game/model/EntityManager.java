@@ -35,6 +35,8 @@ public class EntityManager {
     private int score;
     private int multiplier;
 
+    private boolean left;
+
 
     public EntityManager(int multiplier) {
         this.enemyEntities = new ArrayList<>();
@@ -102,9 +104,18 @@ public class EntityManager {
             }
         }
         if (bossShip != null) {
-            if (bossShip.getAge() % (frequency / 20) == 0) {
-                this.enemyShots.add(bossShip.shootClockwise(context));
-                this.enemyShots.add(bossShip.shootCounterClockwise(context));
+            if (bossShip.getAge() % (frequency / 10) == 0) {
+               this.enemyShots.add(bossShip.shootClockwise(context));
+               this.enemyShots.add(bossShip.shootCounterClockwise(context));
+            }
+            if (bossShip.getAge() % frequency == 0) {
+                if (left) {
+                    this.enemyShots.add(bossShip.shootLeftCanon(context, playerEntity.getX(), playerEntity.getY()));
+                    left = false;
+                } else {
+                    this.enemyShots.add(bossShip.shootRightCanon(context, playerEntity.getX(), playerEntity.getY()));
+                    left = true;
+                }
             }
         }
     }
