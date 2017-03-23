@@ -64,4 +64,11 @@ public class GameMenu extends Activity {
         finish();
     }
 
+    public void btnScore(View v){
+        Intent scoreActivity = new Intent(this, ScoreActivity.class);
+        SoundPoolUtil.getInstance().playStartBtn();
+        startActivity(scoreActivity);
+        finish();
+    }
+
 }

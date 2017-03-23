@@ -102,6 +102,20 @@
                 android:layout_weight="1"/>
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnScore"
+            android:clickable="true"
+            android:onClick="btnScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="10dp"
+            android:text="Hall of Fame"
+            android:textScaleX="2"
+            android:background="#2b3b9f"
+            android:textColor="#FFFFFF"
+            android:layout_weight="0.2" />
+
     </LinearLayout>
 
     <LinearLayout

@@ -26,7 +26,10 @@
         <activity android:name=".game.menu.OptionsActivity" />
         <activity
             android:name=".game.menu.CreditsActivity"
-            android:label="@string/title_activity_credits"></activity>
+            android:label="@string/title_activity_credits" />
+        <activity
+            android:name=".game.menu.ScoreActivity"
+            android:label="@string/title_activity_score"></activity>
     </application>
 
 </manifest>
