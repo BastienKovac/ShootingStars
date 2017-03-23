@@ -31,7 +31,7 @@ public class Explosion implements Drawable {
         this.y = source.y;
         this.frames = FrameHolder.getInstance().getFramesExplosion();
         Random rnd = new Random();
-        this.currentIndex = rnd.nextInt((0 + 15) + 1) - 15;
+        this.currentIndex = rnd.nextInt((0 + 60) + 1) - 60;
     }
 
     public boolean isStarted() {

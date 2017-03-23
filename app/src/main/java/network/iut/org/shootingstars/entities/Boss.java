@@ -2,6 +2,10 @@ package network.iut.org.shootingstars.entities;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.PointF;
 
 import java.util.AbstractMap;
@@ -16,7 +20,7 @@ import network.iut.org.shootingstars.game.model.Patterns;
 
 public class Boss extends AbstractEntity {
 
-    private static final float ANGLE_INTERVAL = (float) Math.PI / 24;
+    private static final float ANGLE_INTERVAL = (float) Math.PI / 24f;
     private static final float FACTOR_CANNON_X = (float) (1.7 / 29.0);
     private static final float FACTOR_CANNON_Y = (float) (3.0 / 15.0);
 
@@ -25,6 +29,7 @@ public class Boss extends AbstractEntity {
     private float currentAngleClockwiseTwo, currentAngleCounterClockwiseTwo;
 
     private int hp;
+    private float currentDestroyAngle;
 
 
     public Boss(Context context) {
@@ -36,6 +41,7 @@ public class Boss extends AbstractEntity {
         this.currentAngleCounterClockwiseOne = (float) Math.PI;
         this.currentAngleClockwiseTwo = (float) Math.PI;
         this.currentAngleCounterClockwiseTwo = 0;
+        this.currentDestroyAngle = 0f;
     }
 
     @Override
@@ -70,7 +76,7 @@ public class Boss extends AbstractEntity {
     }
 
     public boolean isDestroyed() {
-        return this.hp == 0;
+        return this.hp <= 0;
     }
 
     private Shot shootClockwiseOne(Context context) {
@@ -117,4 +123,26 @@ public class Boss extends AbstractEntity {
         return new EnemyShot(context, newOriginX, newOriginY, targetX, targetY);
     }
 
+    @Override
+    public boolean collideWith(AbstractEntity other) {
+        float x = getX() - displayedFrame.getWidth() / 2;
+        float y = getY() - displayedFrame.getHeight() / 2;
+        // Find the point of the rectangle closest to the circle
+        float deltaX = other.getX() - Math.max(x, Math.min(other.getX(), x + displayedFrame.getWidth()));
+        float deltaY = other.getY() - Math.max(y, Math.min(other.getY(), y + displayedFrame.getHeight()));
+        return (deltaX * deltaX + deltaY * deltaY) < (other.getRadius() * other.getRadius());
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        update();
+        Bitmap rotatedFrame= displayedFrame;
+        if (isDestroyed()) {
+            Matrix mat = new Matrix();
+            mat.postRotate(currentDestroyAngle);
+            currentDestroyAngle += 0.1;
+            rotatedFrame = Bitmap.createBitmap(displayedFrame, 0, 0, displayedFrame.getWidth(), displayedFrame.getHeight(), mat, true);
+        }
+        canvas.drawBitmap(rotatedFrame, getCenterX(), getCenterY(), null);
+    }
 }

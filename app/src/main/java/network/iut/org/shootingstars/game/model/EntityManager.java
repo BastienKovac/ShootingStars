@@ -133,7 +133,7 @@ public class EntityManager {
     private void explode(AbstractEntity entity) {
         if (entity instanceof Boss) {
             Boss boss = (Boss) entity;
-            for (int i = 0 ; i < 50 ; i++) {
+            for (int i = 0 ; i < 100 ; i++) {
                 explosions.add(new Explosion(boss.getRandomExplosionPoint()));
             }
         } else {
