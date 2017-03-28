@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
 
+import network.iut.org.shootingstars.R;
 import network.iut.org.shootingstars.entities.FrameHolder;
 import network.iut.org.shootingstars.entities.PlayerShip;
 import network.iut.org.shootingstars.game.model.GameModel;

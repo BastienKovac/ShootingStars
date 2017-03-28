@@ -6,15 +6,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.ProgressBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import network.iut.org.shootingstars.R;
 import network.iut.org.shootingstars.entities.FrameHolder;
 import network.iut.org.shootingstars.game.view.background.Background;
 import network.iut.org.shootingstars.game.model.GameModel;
@@ -30,7 +32,11 @@ public class GameView extends SurfaceView implements Runnable {
     private Timer timer = new Timer();
     private TimerTask timerTask;
 
-    private boolean dialogDisplayed = true;
+    private boolean lossDialogDisplayed = true;
+    private boolean winDialogDisplayed = true;
+
+    private RectF hpOutline, hpCurrent;
+    private int maxHp;
 
 
     public GameView(Context context) {
@@ -92,11 +98,11 @@ public class GameView extends SurfaceView implements Runnable {
                 ((Activity)getContext()).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (!dialogDisplayed) {
+                        if (!lossDialogDisplayed && !winDialogDisplayed) {
                             LossDialog dialog = new LossDialog(GameView.this);
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                             dialog.show();
-                            dialogDisplayed = true;
+                            lossDialogDisplayed = true;
                         }
                     }
                 });
@@ -105,16 +111,68 @@ public class GameView extends SurfaceView implements Runnable {
                     frameFreq = 0;
                     model.getEntityManager().incrementScore();
                 }
-                dialogDisplayed = false;
+                lossDialogDisplayed = false;
+            }
+            if (model.getEntityManager().hasBoss()) {
+                if (!model.getEntityManager().isWin()) {
+                    if (hpOutline == null) {
+                        maxHp = model.getEntityManager().getBossHP();
+                        addHpBar();
+                    } else {
+                        updateHpBar();
+                    }
+                }
+            }
+            if (model.getEntityManager().isWin()) {
+                ((Activity) getContext()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!winDialogDisplayed && !lossDialogDisplayed) {
+                            WinDialog dialog = new WinDialog(GameView.this);
+                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            dialog.show();
+                            winDialogDisplayed = true;
+                        }
+                    }
+                });
+            } else {
+                winDialogDisplayed = false;
             }
         }
         draw();
     }
 
+    private void addHpBar() {
+        float h = (getHeight() / 100f) * 2f;
+        float w = (getWidth() / 100f) * 55;
+        float x1 = (getWidth() / 2f) - (w / 2f);
+        float x2 = (getWidth() / 2f) + (w / 2f);
+        float y1 = 15;
+        float y2 = y1 + h;
+        hpOutline = new RectF(x1, y1, x2, y2);
+        hpCurrent = new RectF(x1, y1, x2, y2);
+    }
+
+    private void updateHpBar() {
+        if (model.getEntityManager().isWin()) {
+            hpOutline = null;
+            hpCurrent = null;
+        } else {
+            float w = (hpOutline.width() / maxHp) * model.getEntityManager().getBossHP();
+            hpCurrent = new RectF(hpOutline.left, hpOutline.top, hpOutline.left + w, hpOutline.bottom);
+        }
+    }
+
     public void reinitialize() {
         frameFreq = 0;
         model.reinitialize(getContext());
+        hpOutline = null;
+        hpCurrent = null;
         resume();
+    }
+
+    public int getScore() {
+        return model.getEntityManager().getScore();
     }
 
     private void draw() {
@@ -128,7 +186,15 @@ public class GameView extends SurfaceView implements Runnable {
             p.setColor(Color.YELLOW);
             p.setTextSize(30);
             String txt = model.getEntityManager().getScore() + " (x" + model.getDifficultyMode() + ")";
-            canvas.drawText(txt, 20, 40, p);
+            canvas.drawText(txt, 20, 100, p);
+            if (hpOutline != null && hpCurrent != null) {
+                p.setColor(Color.BLACK);
+                p.setStyle(Paint.Style.STROKE);
+                canvas.drawRect(hpOutline, p);
+                p.setColor(Color.RED);
+                p.setStyle(Paint.Style.FILL);
+                canvas.drawRect(hpCurrent, p);
+            }
             holder.unlockCanvasAndPost(canvas);
         } catch (Exception ignored) {
 

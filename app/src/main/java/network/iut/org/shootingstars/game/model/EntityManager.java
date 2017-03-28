@@ -64,6 +64,7 @@ public class EntityManager {
         playerEntity.setY(h * 0.75f);
         this.score = 0;
         this.bossShip = null;
+        this.win = false;
     }
 
     public int getScore() {
@@ -85,12 +86,20 @@ public class EntityManager {
         }
     }
 
+    public int getBossHP() {
+        return bossShip.getHp();
+    }
+
+    public boolean hasBoss() {
+        return bossShip != null;
+    }
+
     public boolean isEnemyEmpty() {
         return enemyEntities.isEmpty();
     }
 
     public void addEnemyEntity(AbstractEntity enemyEntity) {
-        if (bossShip == null) {
+        if (bossShip == null && !win) {
             this.enemyEntities.add(enemyEntity);
         }
     }
@@ -175,7 +184,9 @@ public class EntityManager {
     }
 
     public void incrementScore() {
-        this.score += multiplier;
+        if (!win) {
+            this.score += multiplier;
+        }
     }
 
     public boolean updatePlayerStatus() {

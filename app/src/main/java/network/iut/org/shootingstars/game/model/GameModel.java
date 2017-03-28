@@ -63,6 +63,10 @@ public class GameModel {
         entityManager.reinitialize(context);
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public boolean updateStatus(Context context) {
         age++;
         boolean status = true;
