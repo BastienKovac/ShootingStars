@@ -37,7 +37,7 @@ Ces options doivent persister à un nouveau lancement de l’application => OK
 - Personnage et mouvement
 Mettez au point un moyen de faire se déplacer votre personnage (comme un appui pour faire remonter par exemple) => OK
 
-Vous pouvez rajouter la gestion de la gravité (déjà fait dans l’exemple)
+Vous pouvez rajouter la gestion de la gravité (déjà fait dans l’exemple) => Suivis du doigt.
 
 - Collisions
 Implémentez des collisions => OK
@@ -69,7 +69,7 @@ Ajoutez un système de score => OK
 
 Affichez le score actuel => OK
 
-Gardez trace des meilleurs scores
+Gardez trace des meilleurs scores => OK
 
 - Bonus
 Etonnez moi, ajoutez ce que bon vous semblera => Et pas qu'un peu
@@ -77,6 +77,9 @@ Etonnez moi, ajoutez ce que bon vous semblera => Et pas qu'un peu
 N’hésitez pas à préciser dans un fichier Readme, les spécificités de VOTRE application, que je n’en rate pas
 
 - Spécificités
+
+La trajectoire des ennemis est généré via une fonction sinusoïdale.
+Un boss est présent en fin de niveau.
 
 
 
