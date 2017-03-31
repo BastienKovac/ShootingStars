@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import network.iut.org.shootingstars.R;
 import network.iut.org.shootingstars.game.menu.GameMenu;
+import network.iut.org.shootingstars.persistence.HighScoreDAO;
 
 /**
  * Created by Android on 28/03/2017.
@@ -37,6 +38,10 @@ public class WinDialog extends Dialog implements View.OnClickListener {
         retry.setOnClickListener(this);
         TextView score = (TextView) findViewById(R.id.score);
         score.setText("Score : " + associatedView.getScore());
+        HighScoreDAO dao = new HighScoreDAO(associatedView.getContext());
+        dao.open();
+        dao.createHighScore(associatedView.getScore());
+        dao.close();
     }
 
     @Override

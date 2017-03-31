@@ -23,7 +23,7 @@ import network.iut.org.shootingstars.game.model.GameModel;
 
 public class GameView extends SurfaceView implements Runnable {
 
-    public static final long FPS = 30;
+    public static final long FPS = 45;
     private int frameFreq;
 
     private SurfaceHolder holder;

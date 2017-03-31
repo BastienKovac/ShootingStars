@@ -43,7 +43,7 @@
             android:id="@+id/back_button"
             android:layout_marginRight="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -53,6 +53,7 @@
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="18dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
@@ -66,7 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/back_button"
-            android:layout_below="@+id/textView4" />
+            android:layout_below="@+id/textView4"
+            android:id="@+id/listScores" />
 
 
     </RelativeLayout>

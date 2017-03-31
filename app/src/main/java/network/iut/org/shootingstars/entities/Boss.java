@@ -22,7 +22,7 @@ public class Boss extends AbstractEntity {
 
     private static final float ANGLE_INTERVAL = (float) Math.PI / 24f;
     private static final float FACTOR_CANNON_X = (float) (1.7 / 29.0);
-    private static final float FACTOR_CANNON_Y = (float) (3.0 / 15.0);
+    private static final float FACTOR_CANNON_Y = (float) (3.125 / 7.35);
 
     private float r;
     private float currentAngleClockwiseOne, currentAngleCounterClockwiseOne;

@@ -17,7 +17,7 @@ import network.iut.org.shootingstars.game.view.GameView;
 
 public class GameModel {
 
-    private static final int BOSS_SPAWN_IN_SECONDS = 1;
+    private static final int BOSS_SPAWN_IN_SECONDS = 90;
 
     private int age;
     private boolean shouldSpawnBoss;
