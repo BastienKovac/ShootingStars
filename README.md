@@ -5,7 +5,7 @@
  -Création d’un petit jeu
 Temps réel => OK
 
-Fluidité => 60fps (30 sur petits écrans).
+Fluidité => 45fps.
 
 Le jeu de votre choix => Space shooter
 
@@ -71,15 +71,10 @@ Affichez le score actuel => OK
 
 Gardez trace des meilleurs scores => OK
 
-- Bonus
-Etonnez moi, ajoutez ce que bon vous semblera => Et pas qu'un peu
-
-N’hésitez pas à préciser dans un fichier Readme, les spécificités de VOTRE application, que je n’en rate pas
-
 - Spécificités
 
-La trajectoire des ennemis est généré via une fonction sinusoïdale.
-Un boss est présent en fin de niveau.
+La trajectoire des ennemis est généré via une fonction sinusoïdale, elle est représentée par une pile de coordonnées à parcourir.
+Un boss apparaît après 90s survécues dans le niveau, persévérez !
 
 
 
